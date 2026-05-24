@@ -15,6 +15,13 @@ from django.contrib.auth import authenticate, login, logout
 from .models import User
 
 
+def redirect_back(request, fallback='index', **fallback_kwargs):
+    next_url = request.META.get('HTTP_REFERER')
+    if next_url and url_has_allowed_host_and_scheme(next_url, allowed_hosts={request.get_host()}):
+        return redirect(next_url)
+    return redirect(fallback, **fallback_kwargs)
+
+
 def index(request):
     categories = models.Category.objects.filter()[:10]
     top_categories = models.Category.objects.filter(is_active=True)[:7]
@@ -27,7 +34,12 @@ def index(request):
     }
     if request.user.is_authenticated:
         wishlist_ids = models.WishList.objects.filter(user=request.user).values_list('product_id', flat=True)
+        cart_ids = models.CartProduct.objects.filter(cart__user=request.user, cart__status=1).values_list('product_id', flat=True)
         context['wishlist_ids'] = wishlist_ids
+        context['cart_ids'] = cart_ids
+    else:
+        context['wishlist_ids'] = []
+        context['cart_ids'] = []
 
 
     return render(request, 'front/index.html', context=context)
@@ -52,8 +64,29 @@ def product_detail(request, code):
 
 
 def category_filter(request, category_id):
-    products = models.Product.objects.filter(category_id=category_id)
-    return render(request, 'front/category_filter.html', {'products': products})
+    categories = models.Category.objects.all()
+    top_categories = models.Category.objects.filter(is_active=True)[:7]
+    active_category = get_object_or_404(models.Category, id=category_id)
+    products = models.Product.objects.filter(category=active_category)
+    free_products = models.Product.objects.filter(discount_status=True)[:8]
+
+    context = {
+        'categories': categories,
+        'top_categories': top_categories,
+        'products': products,
+        'free_products': free_products,
+        'active_category': active_category.id,
+        'active_category_name': active_category.name,
+        'total_products': models.Product.objects.count(),
+        'wishlist_ids': [],
+        'cart_ids': [],
+    }
+
+    if request.user.is_authenticated:
+        context['wishlist_ids'] = models.WishList.objects.filter(user=request.user).values_list('product_id', flat=True)
+        context['cart_ids'] = models.CartProduct.objects.filter(cart__user=request.user, cart__status=1).values_list('product_id', flat=True)
+
+    return render(request, 'front/category_filter.html', context)
 
 
 # --------------------AUTH------------------------------
@@ -120,14 +153,14 @@ def add_to_cart(request, product_code):
     else:
         models.CartProduct.objects.create(cart=cart, product=product, count=1)
 
-    return redirect('product_detail', code=product.code)
+    return redirect_back(request, 'product_detail', code=product.code)
 
 
 @login_required(login_url='login')
 def remove_from_cart(request, product_code):
     product = get_object_or_404(models.Product, code=product_code)
     models.CartProduct.objects.filter(cart__user=request.user, product=product).delete()
-    return redirect('product_detail', code=product.code)
+    return redirect_back(request, 'product_detail', code=product.code)
 
 
 @login_required(login_url='login')
@@ -162,7 +195,7 @@ def add_wishlist(request, product_code):
     element = models.WishList.objects.filter(product=product, user=request.user)
     if not element:
         models.WishList.objects.create(product=product, user=request.user)
-    return redirect('index')
+    return redirect_back(request)
 
 @login_required(login_url='login')
 def delete_wishlist(request, product_code):
@@ -170,8 +203,8 @@ def delete_wishlist(request, product_code):
     element = models.WishList.objects.filter(product=product, user=request.user)
     if element:
         element.delete()
-        return redirect('index')
-    return redirect('index')
+        return redirect_back(request)
+    return redirect_back(request)
 
 
 

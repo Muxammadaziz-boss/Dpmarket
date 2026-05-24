@@ -122,7 +122,7 @@
             </li>
             {% for i in top_categories %}
             <li class="nav-item" role="presentation">
-              <button class="nav-link" id="pills-{{i.name}}-tab" data-bs-toggle="pill" data-bs-target="#pills-{{i.name}}" type="button" role="tab" aria-controls="pills-wordPress" aria-selected="false">{{ i.name }}</button>
+              <button class="nav-link" id="pills-category-{{ i.id }}-tab" data-bs-toggle="pill" data-bs-target="#pills-category-{{ i.id }}" type="button" role="tab" aria-controls="pills-category-{{ i.id }}" aria-selected="false">{{ i.name }}</button>
             </li>
             {% endfor %}
         </ul>
@@ -170,7 +170,12 @@
             {% else %}
             <a href="{% url 'add_wishlist' i.code %}" class="btn btn-outline-light btn-sm pill"> <i class="fa fa-heart" style="color: #c7bfbf"></i></a>
             {% endif %}
-            <a href="product-details.html" class="btn btn-outline-light btn-sm pill">Live</a>
+            {% if i.id in cart_ids %}
+            <a href="{% url 'remove_from_cart' i.code %}" class="btn btn-outline-light btn-sm pill"><i class="fas fa-shopping-cart" style="color: hsl(var(--main));"></i></a>
+            {% else %}
+            <a href="{% url 'add_to_cart' i.code %}" class="btn btn-outline-light btn-sm pill"><i class="fas fa-cart-plus" style="color: #c7bfbf;"></i></a>
+            {% endif %}
+            <a href="{% url 'product_detail' i.code %}" class="btn btn-outline-light btn-sm pill">Live</a>
         </div>
     </div>
 </div>
@@ -181,17 +186,16 @@
             </div>
 
            {% for c in top_categories %}
-            <div class="tab-pane fade" id="pills-{{c.name}}" role="tabpanel" aria-labelledby="pills-{{c.name}}-tab" tabindex="0">
+            <div class="tab-pane fade" id="pills-category-{{ c.id }}" role="tabpanel" aria-labelledby="pills-category-{{ c.id }}-tab" tabindex="0">
                 <div class="row gy-4">
                     {% for i in products %}
-                    {% if i.category == c %}
+                    {% if i.category_id == c.id %}
     <div class="col-xl-3 col-lg-4 col-sm-6">
         <div class="product-card ">
     <div class="product-card__thumb d-flex">
         <a href="{% url 'product_detail' i.code %}" class="link w-100">
             <img src="{{i.image.url}}" alt="" class="cover-img">
         </a>
-                    <a type="submit" class=""><i class="fas fa-heart"></i></a>
     </div>
     <div class="product-card__content">
         <h6 class="product-card__title">
@@ -221,7 +225,17 @@
                     <span class="star-rating__text text-heading fw-500 font-14"> (16)</span>
                 </div>
             </div>
-            <a href="product-details.html" class="btn btn-outline-light btn-sm pill">Live Demo</a>
+            {% if i.id in wishlist_ids %}
+            <a href="{% url 'delete_wishlist' i.code %}" class="btn btn-outline-light btn-sm pill"> <i class="fa fa-heart" style="color: red"></i></a>
+            {% else %}
+            <a href="{% url 'add_wishlist' i.code %}" class="btn btn-outline-light btn-sm pill"> <i class="fa fa-heart" style="color: #c7bfbf"></i></a>
+            {% endif %}
+            {% if i.id in cart_ids %}
+            <a href="{% url 'remove_from_cart' i.code %}" class="btn btn-outline-light btn-sm pill"><i class="fas fa-shopping-cart" style="color: hsl(var(--main));"></i></a>
+            {% else %}
+            <a href="{% url 'add_to_cart' i.code %}" class="btn btn-outline-light btn-sm pill"><i class="fas fa-cart-plus" style="color: #c7bfbf;"></i></a>
+            {% endif %}
+            <a href="{% url 'product_detail' i.code %}" class="btn btn-outline-light btn-sm pill">Live</a>
         </div>
     </div>
 </div>
@@ -230,7 +244,6 @@
     {% endfor %}
 
 </div>
-            </div>
             </div>
 
         {% endfor %}

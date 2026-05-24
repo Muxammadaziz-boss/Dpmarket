@@ -273,7 +273,6 @@
                                 <a href="{% url 'product_detail' product.code %}" class="link w-100">
                                     <img src="{{ product.image.url }}" alt="{{ product.name }}" class="cover-img">
                                 </a>
-                                <button type="button" class="product-card__wishlist"><i class="fas fa-heart"></i></button>
                             </div>
                             <div class="product-card__content">
                                 <h6 class="product-card__title">
@@ -305,8 +304,17 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <a href="{% url 'product_detail' product.code %}"
-                                       class="btn btn-outline-light btn-sm pill">Ko'rish</a>
+                                    {% if product.id in wishlist_ids %}
+                                    <a href="{% url 'delete_wishlist' product.code %}" class="btn btn-outline-light btn-sm pill"><i class="fa fa-heart" style="color: red"></i></a>
+                                    {% else %}
+                                    <a href="{% url 'add_wishlist' product.code %}" class="btn btn-outline-light btn-sm pill"><i class="fa fa-heart" style="color: #c7bfbf"></i></a>
+                                    {% endif %}
+                                    {% if product.id in cart_ids %}
+                                    <a href="{% url 'remove_from_cart' product.code %}" class="btn btn-outline-light btn-sm pill"><i class="fas fa-shopping-cart" style="color: hsl(var(--main));"></i></a>
+                                    {% else %}
+                                    <a href="{% url 'add_to_cart' product.code %}" class="btn btn-outline-light btn-sm pill"><i class="fas fa-cart-plus" style="color: #c7bfbf;"></i></a>
+                                    {% endif %}
+                                    <a href="{% url 'product_detail' product.code %}" class="btn btn-outline-light btn-sm pill">Ko'rish</a>
                                 </div>
                             </div>
                         </div>
@@ -367,7 +375,6 @@
                     <a href="{% url 'product_detail' product.code %}" class="link w-100">
                         <img src="{{ product.image.url }}" alt="{{ product.name }}" class="cover-img">
                     </a>
-                    <button type="button" class="product-card__wishlist"><i class="fas fa-heart"></i></button>
                 </div>
                 <div class="product-card__content">
                     <h6 class="product-card__title">
@@ -399,7 +406,17 @@
                                 </ul>
                             </div>
                         </div>
-                        <a href="{% url 'product_detail' product.code %}" class="btn btn-outline-light btn-sm pill">Live Demo</a>
+                        {% if product.id in wishlist_ids %}
+                        <a href="{% url 'delete_wishlist' product.code %}" class="btn btn-outline-light btn-sm pill"><i class="fa fa-heart" style="color: red"></i></a>
+                        {% else %}
+                        <a href="{% url 'add_wishlist' product.code %}" class="btn btn-outline-light btn-sm pill"><i class="fa fa-heart" style="color: #c7bfbf"></i></a>
+                        {% endif %}
+                        {% if product.id in cart_ids %}
+                        <a href="{% url 'remove_from_cart' product.code %}" class="btn btn-outline-light btn-sm pill"><i class="fas fa-shopping-cart" style="color: hsl(var(--main));"></i></a>
+                        {% else %}
+                        <a href="{% url 'add_to_cart' product.code %}" class="btn btn-outline-light btn-sm pill"><i class="fas fa-cart-plus" style="color: #c7bfbf;"></i></a>
+                        {% endif %}
+                        <a href="{% url 'product_detail' product.code %}" class="btn btn-outline-light btn-sm pill">Live</a>
                     </div>
                 </div>
             </div>

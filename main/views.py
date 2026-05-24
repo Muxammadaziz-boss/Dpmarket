@@ -1,8 +1,11 @@
 from multiprocessing import context
+import json
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import AbstractUser
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
+from django.utils.http import url_has_allowed_host_and_scheme
+from django.http import JsonResponse
 
 
 
@@ -35,11 +38,15 @@ def product_detail(request, code):
     product = models.Product.objects.get(code=code)
 
     context = {
-        "product":product
+        "product":product,
+        "cart_ids": [],
+        "wishlist_ids": [],
     }
     if request.user.is_authenticated:
         wishlist_ids = models.WishList.objects.filter(user=request.user).values_list('product_id', flat=True)
+        cart_ids = models.CartProduct.objects.filter(cart__user=request.user).values_list('product_id', flat=True)
         context['wishlist_ids'] = wishlist_ids
+        context['cart_ids'] = cart_ids
 
     return render(request, 'front/detail.html', context=context)
 
@@ -72,10 +79,14 @@ def log_in(request):
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
+        next_url = request.POST.get('next') or 'index'
+        if not url_has_allowed_host_and_scheme(next_url, allowed_hosts={request.get_host()}):
+            next_url = 'index'
         user = authenticate(username=username, password=password)
-        login(request, user)
-        return redirect('index')
-    return render(request, 'front/login.html')
+        if user:
+            login(request, user)
+            return redirect(next_url)
+    return render(request, 'front/login.html', {'next': request.GET.get('next', '')})
 
 def log_out(request):
     logout(request)
@@ -95,6 +106,54 @@ def profile(request):
 
         user.save()
     return render(request,  'front/profile.html')
+
+
+@login_required(login_url='login')
+def add_to_cart(request, product_code):
+    product = get_object_or_404(models.Product, code=product_code)
+    cart, created = models.Cart.objects.get_or_create(user=request.user, status=1)
+    cart_product = models.CartProduct.objects.filter(cart=cart, product=product).first()
+
+    if cart_product:
+        cart_product.count += 1
+        cart_product.save()
+    else:
+        models.CartProduct.objects.create(cart=cart, product=product, count=1)
+
+    return redirect('product_detail', code=product.code)
+
+
+@login_required(login_url='login')
+def remove_from_cart(request, product_code):
+    product = get_object_or_404(models.Product, code=product_code)
+    models.CartProduct.objects.filter(cart__user=request.user, product=product).delete()
+    return redirect('product_detail', code=product.code)
+
+
+@login_required(login_url='login')
+def update_cart_quantity(request, product_code):
+    if request.method == 'POST':
+        product = get_object_or_404(models.Product, code=product_code)
+        cart = get_object_or_404(models.Cart, user=request.user, status=1)
+        cart_product = get_object_or_404(models.CartProduct, cart=cart, product=product)
+        
+        try:
+            data = json.loads(request.body)
+            quantity = int(data.get('quantity', 0))
+            
+            if quantity <= 0:
+                cart_product.delete()
+                return JsonResponse({'status': 'deleted'})
+            else:
+                cart_product.count = quantity
+                cart_product.save()
+                return JsonResponse({
+                    'status': 'updated',
+                    'total_price': float(cart_product.total_price),
+                    'count': cart_product.count
+                })
+        except (ValueError, TypeError):
+            return JsonResponse({'status': 'error'}, status=400)
 
 
 @login_required(login_url='login')
@@ -123,3 +182,12 @@ def wishlist(request):
         "wishlist_products":wishlist_products
     }
     return render(request, 'front/wishlist.html', context=context)
+
+
+@login_required(login_url='login')
+def cart(request):
+    cart_products = models.CartProduct.objects.filter(cart__user=request.user).select_related('product', 'cart')
+    context = {
+        "cart_products": cart_products
+    }
+    return render(request, 'front/cart.html', context=context)

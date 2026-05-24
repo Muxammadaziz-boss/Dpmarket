@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 from uuid import uuid4
 
 from django.contrib.auth.models import AbstractUser
@@ -9,6 +10,9 @@ class User(AbstractUser):
     address = models.TextField(null=True, blank=True)
     photo = models.ImageField(upload_to='users', null=True, blank=True)
 
+    @property
+    def cart_items_count(self):
+        return CartProduct.objects.filter(cart__user=self).aggregate(total=Sum('count'))['total'] or 0
 
     class Meta(AbstractUser.Meta):
         swappable = "AUTH_USER_MODEL"
@@ -79,6 +83,12 @@ class CartProduct(Code):
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, null=True)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     count = models.IntegerField()
+
+    @property
+    def total_price(self):
+        if not self.product:
+            return 0
+        return self.product.price * self.count
 
 
 class WishList(models.Model):

@@ -354,11 +354,21 @@
                             <h6 class="product-card__price mb-0 font-14 fw-500">${{product.discount_price}}</h6>
                         </div>
                     </div>
-                    <button type="button"
+                    {% if product.id not in cart_ids %}
+                    <a href="{% url 'add_to_cart' product.code %}"
                         class="btn btn-main d-flex w-100 justify-content-center align-items-center gap-2 pill px-sm-5 mt-32">
                         <img src="{% static 'assets/images/icons/add-to-cart.svg' %}" alt="">
+
                         Add To Cart
-                    </button>
+                    </a>
+                    {% elif product.id in cart_ids %}
+                    <a href="{% url 'remove_from_cart' product.code %}"
+                        class="btn btn-main d-flex w-100 justify-content-center align-items-center gap-2 pill px-sm-5 mt-32">
+                        <img src="{% static 'assets/images/icons/remove-from-cart.svg' %}" alt="">
+
+                        Remove From Cart
+                    </a>
+                    {% endif %}
                     {% if product.id in wishlist_ids %}
                     <a href="{% url 'delete_wishlist' product.code %}"
                         class="btn btn-main d-flex w-100 justify-content-center align-items-center gap-2 pill px-sm-5 mt-32">

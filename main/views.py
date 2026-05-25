@@ -48,17 +48,23 @@ def index(request):
 
 def product_detail(request, code):
     product = models.Product.objects.get(code=code)
+    related_products = models.Product.objects.filter(category=product.category).exclude(code=code)
 
     context = {
         "product":product,
+        "related_products":related_products,
         "cart_ids": [],
         "wishlist_ids": [],
+        "cart_qty": 1,
     }
     if request.user.is_authenticated:
         wishlist_ids = models.WishList.objects.filter(user=request.user).values_list('product_id', flat=True)
         cart_ids = models.CartProduct.objects.filter(cart__user=request.user).values_list('product_id', flat=True)
         context['wishlist_ids'] = wishlist_ids
         context['cart_ids'] = cart_ids
+        cart_product = models.CartProduct.objects.filter(cart__user=request.user, cart__status=1, product=product).first()
+        if cart_product:
+            context['cart_qty'] = cart_product.count
 
     return render(request, 'front/detail.html', context=context)
 
@@ -147,11 +153,18 @@ def add_to_cart(request, product_code):
     cart, created = models.Cart.objects.get_or_create(user=request.user, status=1)
     cart_product = models.CartProduct.objects.filter(cart=cart, product=product).first()
 
+    quantity = 1
+    if request.method == 'POST':
+        try:
+            quantity = int(request.POST.get('quantity', 1))
+        except (ValueError, TypeError):
+            quantity = 1
+
     if cart_product:
-        cart_product.count += 1
+        cart_product.count += quantity
         cart_product.save()
     else:
-        models.CartProduct.objects.create(cart=cart, product=product, count=1)
+        models.CartProduct.objects.create(cart=cart, product=product, count=quantity)
 
     return redirect_back(request, 'product_detail', code=product.code)
 
@@ -171,22 +184,31 @@ def update_cart_quantity(request, product_code):
         cart_product = get_object_or_404(models.CartProduct, cart=cart, product=product)
         
         try:
-            data = json.loads(request.body)
-            quantity = int(data.get('quantity', 0))
+            if request.content_type == 'application/json':
+                data = json.loads(request.body)
+                quantity = int(data.get('quantity', 0))
+            else:
+                quantity = int(request.POST.get('quantity', 0))
             
             if quantity <= 0:
                 cart_product.delete()
-                return JsonResponse({'status': 'deleted'})
+                if request.content_type == 'application/json':
+                    return JsonResponse({'status': 'deleted'})
+                return redirect('cart')
             else:
                 cart_product.count = quantity
                 cart_product.save()
-                return JsonResponse({
-                    'status': 'updated',
-                    'total_price': float(cart_product.total_price),
-                    'count': cart_product.count
-                })
+                if request.content_type == 'application/json':
+                    return JsonResponse({
+                        'status': 'updated',
+                        'total_price': float(cart_product.total_price),
+                        'count': cart_product.count
+                    })
+                return redirect_back(request, 'product_detail', code=product.code)
         except (ValueError, TypeError):
-            return JsonResponse({'status': 'error'}, status=400)
+            if request.content_type == 'application/json':
+                return JsonResponse({'status': 'error'}, status=400)
+            return redirect_back(request, 'product_detail', code=product.code)
 
 
 @login_required(login_url='login')

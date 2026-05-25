@@ -2,6 +2,61 @@
 {% load static %}
 
 {% block content %}
+<style>
+    .cart-quantity {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px;
+        border: 1px solid hsl(var(--border-color));
+        border-radius: 999px;
+        background-color: hsl(var(--white));
+        box-shadow: 0 8px 24px hsl(var(--black) / 0.04);
+        white-space: nowrap;
+    }
+
+    .cart-quantity__btn {
+        width: 38px;
+        height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex: 0 0 38px;
+        border: 0;
+        border-radius: 50%;
+        background: hsl(var(--main) / 0.1);
+        color: hsl(var(--main));
+        font-size: 22px;
+        font-weight: 700;
+        line-height: 1;
+        transition: 0.2s ease;
+        cursor: pointer;
+    }
+
+    .cart-quantity__btn:hover,
+    .cart-quantity__btn:focus {
+        background: var(--main-gradient);
+        color: #fff;
+    }
+
+    .cart-quantity__input {
+        width: 54px;
+        height: 38px;
+        padding: 0 6px;
+        border: 1px solid hsl(var(--border-color));
+        border-radius: 12px;
+        color: hsl(var(--heading-color));
+        font-weight: 600;
+        text-align: center;
+        appearance: textfield;
+    }
+
+    .cart-quantity__input::-webkit-outer-spin-button,
+    .cart-quantity__input::-webkit-inner-spin-button {
+        margin: 0;
+        appearance: none;
+    }
+</style>
 
 
 
@@ -40,7 +95,7 @@
 
                         <div class="breadcrumb-content flx-align gap-3">
                             <div class="breadcrumb-content__item text-heading fw-500 flx-align gap-2">
-                                <span class="icon"><img src="assets/images/icons/cart-icon.svg" alt="">></span>
+                                <span class="icon"><img src="assets/images/icons/cart-icon.svg" alt=""></span>
                                 <span class="text">{{product.category.name}}</span>
                             </div>
                             <div class="breadcrumb-content__item text-heading fw-500 flx-align gap-2">
@@ -131,7 +186,7 @@
                         <!-- Product Details Content Start -->
                         <div class="product-details">
                             <div class="product-details__thumb">
-                                <img src="{{product.image.url}}" alt="">
+                                <img src="{{product.image.url}}" alt="{{product.name}}" style="max-height: 450px; width: 100%; object-fit: cover; border-radius: 8px;">
                             </div>
                             <p class="product-details__desc"> {{product.description}} </p>
 
@@ -139,56 +194,47 @@
                             <div class="more-item">
                                 <div class="flx-between mb-4">
                                     <h5 class="more-item__title">More Items</h5>
-                                    <a href="profile.html"
-                                        class="text-heading fw-500 hover-text-decoration-underline">View Author
-                                        Profile</a>
                                 </div>
-                                <div class="more-item__content flx-align">
-                                    <div class="more-item__item">
-                                        <a href="all-product.html" class="link w-100 h-100 d-block">
-                                            <img src="assets/images/thumbs/more-item1.png" alt="">
-                                        </a>
+                                <div class="row gy-4">
+                                    {% for item in related_products %}
+                                    <div class="col-xl-4 col-lg-6 col-sm-6">
+                                        <div class="product-card">
+                                            <div class="product-card__thumb d-flex">
+                                                <a href="{% url 'product_detail' item.code %}" class="link w-100">
+                                                    <img src="{{ item.image.url }}" alt="{{ item.name }}" class="cover-img">
+                                                </a>
+                                            </div>
+                                            <div class="product-card__content">
+                                                <h6 class="product-card__title">
+                                                    <a href="{% url 'product_detail' item.code %}" class="link">{{ item.name }}</a>
+                                                </h6>
+                                                <div class="product-card__info flx-between gap-2">
+                                                    <span class="product-card__author">
+                                                        {{ item.category.name }}
+                                                    </span>
+                                                    <div class="flx-align gap-2">
+                                                        {% if item.discount_price %}
+                                                        <h6 class="product-card__price mb-0">${{ item.discount_price }}</h6>
+                                                        <span class="product-card__prevPrice text-decoration-line-through">${{ item.price }}</span>
+                                                        {% else %}
+                                                        <h6 class="product-card__price mb-0">${{ item.price }}</h6>
+                                                        {% endif %}
+                                                    </div>
+                                                </div>
+                                                <div class="product-card__bottom flx-between gap-2">
+                                                    <div>
+                                                        <span class="product-card__sales font-14 mb-2">{{ item.count }} dona</span>
+                                                    </div>
+                                                    <a href="{% url 'product_detail' item.code %}" class="btn btn-outline-light btn-sm pill">Batafsil</a>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="more-item__item">
-                                        <a href="all-product.html" class="link w-100 h-100 d-block">
-                                            <img src="assets/images/thumbs/more-item2.png" alt="">
-                                        </a>
+                                    {% empty %}
+                                    <div class="col-12">
+                                        <p class="text-muted">Bu kategoriyada boshqa mahsulot yo'q.</p>
                                     </div>
-                                    <div class="more-item__item">
-                                        <a href="all-product.html" class="link w-100 h-100 d-block">
-                                            <img src="assets/images/thumbs/more-item3.png" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="more-item__item">
-                                        <a href="all-product.html" class="link w-100 h-100 d-block">
-                                            <img src="assets/images/thumbs/more-item4.png" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="more-item__item">
-                                        <a href="all-product.html" class="link w-100 h-100 d-block">
-                                            <img src="assets/images/thumbs/more-item5.png" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="more-item__item">
-                                        <a href="all-product.html" class="link w-100 h-100 d-block">
-                                            <img src="assets/images/thumbs/more-item6.png" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="more-item__item">
-                                        <a href="all-product.html" class="link w-100 h-100 d-block">
-                                            <img src="assets/images/thumbs/more-item7.png" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="more-item__item">
-                                        <a href="all-product.html" class="link w-100 h-100 d-block">
-                                            <img src="assets/images/thumbs/more-item8.png" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="more-item__item">
-                                        <a href="all-product.html" class="link w-100 h-100 d-block">
-                                            <img src="assets/images/thumbs/more-item9.png" alt="">
-                                        </a>
-                                    </div>
+                                    {% endfor %}
                                 </div>
                             </div>
 
@@ -346,7 +392,6 @@
 
                     <div class="flx-between mt-3">
                         <div class="common-check mb-0">
-                            <!--            <input class="form-check-input" type="checkbox" name="checkbox" id="extended">-->
                             <label class="form-check-label mb-0 fw-300 text-body">Maxsulot narxi:</label>
                         </div>
                         <div class="flx-align gap-2">
@@ -354,20 +399,39 @@
                             <h6 class="product-card__price mb-0 font-14 fw-500">${{product.discount_price}}</h6>
                         </div>
                     </div>
+
+                    <div class="cart-quantity mt-32" aria-label="Mahsulot soni">
+                        <button type="button" class="cart-quantity__btn qty-btn" data-action="decrease">−</button>
+                        <input type="number" class="cart-quantity__input qty-input" value="{{ cart_qty }}" min="1" aria-label="Soni">
+                        <button type="button" class="cart-quantity__btn qty-btn" data-action="increase">+</button>
+                    </div>
+
                     {% if product.id not in cart_ids %}
-                    <a href="{% url 'add_to_cart' product.code %}"
-                        class="btn btn-main d-flex w-100 justify-content-center align-items-center gap-2 pill px-sm-5 mt-32">
-                        <img src="{% static 'assets/images/icons/add-to-cart.svg' %}" alt="">
-
-                        Add To Cart
-                    </a>
-                    {% elif product.id in cart_ids %}
-                    <a href="{% url 'remove_from_cart' product.code %}"
-                        class="btn btn-main d-flex w-100 justify-content-center align-items-center gap-2 pill px-sm-5 mt-32">
-                        <img src="{% static 'assets/images/icons/remove-from-cart.svg' %}" alt="">
-
-                        Remove From Cart
-                    </a>
+                    <form method="POST" action="{% url 'add_to_cart' product.code %}" class="add-cart-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="quantity" class="hidden-quantity" value="{{ cart_qty }}">
+                        <button type="submit"
+                            class="btn btn-main d-flex w-100 justify-content-center align-items-center gap-2 pill px-sm-5 mt-3">
+                            <img src="{% static 'assets/images/icons/add-to-cart.svg' %}" alt="">
+                            Add To Cart
+                        </button>
+                    </form>
+                    {% else %}
+                    <form method="POST" action="{% url 'update_cart_quantity' product.code %}" class="add-cart-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="quantity" class="hidden-quantity" value="{{ cart_qty }}">
+                        <div class="d-flex gap-2 mt-3">
+                            <button type="submit"
+                                class="btn btn-main w-100 d-flex justify-content-center align-items-center gap-2 pill">
+                                <img src="{% static 'assets/images/icons/add-to-cart.svg' %}" alt="">
+                                Update Cart
+                            </button>
+                            <a href="{% url 'remove_from_cart' product.code %}"
+                                class="btn btn-outline-danger d-flex justify-content-center align-items-center gap-2 pill px-3">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </form>
                     {% endif %}
                     {% if product.id in wishlist_ids %}
                     <a href="{% url 'delete_wishlist' product.code %}"
@@ -437,4 +501,46 @@
 <!-- ======================== Brand Section End ========================= -->
 
 
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var qtyInput = document.querySelector('.qty-input');
+    var hiddenInput = document.querySelector('.hidden-quantity');
+    var decreaseBtn = document.querySelector('[data-action="decrease"]');
+    var increaseBtn = document.querySelector('[data-action="increase"]');
+    var cartForm = document.querySelector('.add-cart-form');
+
+    function syncQuantity() {
+        if (hiddenInput) hiddenInput.value = qtyInput.value;
+    }
+
+    if (decreaseBtn) {
+        decreaseBtn.addEventListener('click', function() {
+            var val = parseInt(qtyInput.value) || 1;
+            if (val > 1) {
+                qtyInput.value = val - 1;
+                syncQuantity();
+            }
+        });
+    }
+
+    if (increaseBtn) {
+        increaseBtn.addEventListener('click', function() {
+            var val = parseInt(qtyInput.value) || 1;
+            if (val < 999) {
+                qtyInput.value = val + 1;
+                syncQuantity();
+            }
+        });
+    }
+
+    if (qtyInput) {
+        qtyInput.addEventListener('change', syncQuantity);
+    }
+
+    syncQuantity();
+});
+</script>
 {% endblock %}

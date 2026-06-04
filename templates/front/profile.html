@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <section class="breadcrumb-three section-bg position-relative z-index-1 overflow-hidden">
 
-<!--    <img src="assets/images/gradients/breadcrumb-gradient-bg.png" alt="1" class="bg&#45;&#45;gradient">-->
+<!--    <img src="{% static 'assets/images/gradients/breadcrumb-gradient-bg.png' %}" alt="1" class="bg&#45;&#45;gradient">-->
 
-<!--    <img src="assets/images/shapes/element-moon3.png" alt="2" class="element one">-->
-<!--    <img src="assets/images/shapes/element-moon1.png" alt="3" class="element three">-->
+<!--    <img src="{% static 'assets/images/shapes/element-moon3.png' %}" alt="2" class="element one">-->
+<!--    <img src="{% static 'assets/images/shapes/element-moon1.png' %}" alt="3" class="element three">-->
 
     <div class="container container-two">
         <div class="breadcrumb-three-content border-bottom border-color">
@@ -18,7 +19,7 @@
                                 {% if user.photo %}
                                 <img src="{{user.photo.url}}" alt="">
                                 {% else %}
-                                <img src="assets/images/thumbs/author-profile.png" alt="">
+                                <img src="{% static 'assets/images/thumbs/author-profile.png' %}" alt="">
                                 {% endif %}
                             </div>
                             <div class="author-profile__info">

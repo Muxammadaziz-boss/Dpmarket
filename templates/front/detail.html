@@ -56,6 +56,61 @@
         margin: 0;
         appearance: none;
     }
+
+    .heart-btn {
+        position: relative;
+        background: transparent;
+        border-radius: 50%;
+        background-color: white;
+        padding: 10px 10px 8px 10px;
+        box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.25), 0px 2px 5px 0px rgba(0, 0, 0, 0.2);
+        border: 0;
+        cursor: pointer;
+        transition: box-shadow 0.2s;
+    }
+
+    .heart-btn:active {
+        box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.25);
+    }
+
+    .heart-btn .heart {
+        width: 28px;
+        fill: gray;
+        transition: fill .5s, transform .5s;
+        pointer-events: none;
+        display: block;
+    }
+
+    .heart-btn.liked .heart-icon {
+        fill: #ee3529;
+        transform: scale(1.2);
+    }
+
+    .heart-pop {
+        position: absolute;
+        width: 30%;
+        opacity: 0;
+        left: 0;
+        animation: heartPop 1s ease forwards reverse;
+        pointer-events: none;
+    }
+
+    .heart-pop.one   { left: 1%;  transform: rotate(-10deg); animation-delay: .45s; }
+    .heart-pop.two   { left: 15%; transform: rotate(8deg);  animation-delay: .25s; }
+    .heart-pop.three { left: 30%; transform: rotate(-5deg); animation-delay: 0s; }
+    .heart-pop.four  { left: 50%; transform: rotate(-8deg); animation-delay: .3s; }
+    .heart-pop.five  { left: 60%; transform: rotate(-10deg); animation-delay: .9s; }
+    .heart-pop.six   { left: 70%; transform: rotate(-8deg); animation-delay: .2s; }
+    .heart-pop.seven { left: 85%; transform: rotate(6deg);  animation-delay: .35s; }
+    .heart-pop.eight { left: 90%; transform: rotate(-4deg); animation-delay: .5s; }
+    .heart-pop.nine  { left: 95%; transform: rotate(8deg);  animation-delay: .2s; }
+
+    @keyframes heartPop {
+        0%   { left: calc(50% - 7px); top: 10px; }
+        20%  { opacity: 1; }
+        80%  { top: -20px; }
+        100% { opacity: 0; }
+    }
 </style>
 
 
@@ -66,7 +121,7 @@
 <section class="breadcrumb border-bottom p-0 d-block section-bg position-relative z-index-1">
 
     <div class="breadcrumb-two">
-        <img src="assets/images/gradients/breadcrumb-gradient-bg.png" alt="" class="bg--gradient">
+        <img src="{% static 'assets/images/gradients/breadcrumb-gradient-bg.png' %}" alt="" class="bg--gradient">
         <div class="container container-two">
             <div class="row justify-content-center">
                 <div class="col-lg-12">
@@ -95,19 +150,19 @@
 
                         <div class="breadcrumb-content flx-align gap-3">
                             <div class="breadcrumb-content__item text-heading fw-500 flx-align gap-2">
-                                <span class="icon"><img src="assets/images/icons/cart-icon.svg" alt=""></span>
+                                <span class="icon"><img src="{% static 'assets/images/icons/cart-icon.svg' %}" alt=""></span>
                                 <span class="text">{{product.category.name}}</span>
                             </div>
                             <div class="breadcrumb-content__item text-heading fw-500 flx-align gap-2">
-                                <span class="icon"><img src="assets/images/icons/cart-icon.svg" alt=""></span>
+                                <span class="icon"><img src="{% static 'assets/images/icons/cart-icon.svg' %}" alt=""></span>
                                 <span class="text">158 sales</span>
                             </div>
                             <div class="breadcrumb-content__item text-heading fw-500 flx-align gap-2">
-                                <span class="icon"><img src="assets/images/icons/check-icon.svg" alt=""></span>
+                                <span class="icon"><img src="{% static 'assets/images/icons/check-icon.svg' %}" alt=""></span>
                                 <span class="text">Recently Updated</span>
                             </div>
                             <div class="breadcrumb-content__item text-heading fw-500 flx-align gap-2">
-                                <span class="icon"><img src="assets/images/icons/check-icon.svg" alt=""></span>
+                                <span class="icon"><img src="{% static 'assets/images/icons/check-icon.svg' %}" alt=""></span>
                                 <span class="text">Well Documented</span>
                             </div>
                         </div>
@@ -150,7 +205,7 @@
             </ul>
             <div class="social-share">
                 <button type="button" class="social-share__button">
-                    <img src="assets/images/icons/share-icon.svg" alt="">
+                    <img src="{% static 'assets/images/icons/share-icon.svg' %}" alt="">
                 </button>
                 <div class="social-share__icons">
                     <ul class="social-list colorful-style">
@@ -315,7 +370,7 @@
                             <ul class="comment-list">
                                 <li class="comment-list__item d-flex align-items-start gap-sm-4 gap-3">
                                     <div class="comment-list__thumb flex-shrink-0">
-                                        <img src="assets/images/thumbs/comment1.png" class="cover-img" alt="">
+                                        <img src="{% static 'assets/images/thumbs/comment1.png' %}" class="cover-img" alt="">
                                     </div>
                                     <div class="comment-list__content">
                                         <div class="flx-between gap-2 align-items-start">
@@ -326,7 +381,7 @@
                                             <a class="comment-list__reply fw-500 flx-align gap-2 hover-text-decoration-underline"
                                                 href="#comment-box">
                                                 Reply
-                                                <span class="icon"><img src="assets/images/icons/reply-icon.svg"
+                                                <span class="icon"><img src="{% static 'assets/images/icons/reply-icon.svg' %}"
                                                         alt=""></span>
                                             </a>
                                         </div>
@@ -340,7 +395,7 @@
                                     <ul class="comment-list comment-list--two">
                                         <li class="comment-list__item d-flex align-items-start gap-sm-4 gap-3">
                                             <div class="comment-list__thumb flex-shrink-0">
-                                                <img src="assets/images/thumbs/comment2.png" class="cover-img" alt="">
+                                                <img src="{% static 'assets/images/thumbs/comment2.png' %}" class="cover-img" alt="">
                                             </div>
                                             <div class="comment-list__content">
                                                 <div class="flx-between gap-2 align-items-start">
@@ -353,7 +408,7 @@
                                                     <a class="comment-list__reply fw-500 flx-align gap-2 hover-text-decoration-underline"
                                                         href="#comment-box">
                                                         Reply
-                                                        <span class="icon"><img src="assets/images/icons/reply-icon.svg"
+                                                        <span class="icon"><img src="{% static 'assets/images/icons/reply-icon.svg' %}"
                                                                 alt=""></span>
                                                     </a>
                                                 </div>
@@ -377,15 +432,15 @@
                 <div class="product-sidebar section-bg">
                     <!--    <ul class="sidebar-list">-->
                     <!--        <li class="sidebar-list__item flx-align gap-2 font-14 fw-300 mb-2">-->
-                    <!--            <span class="icon"><img src="assets/images/icons/check-cirlce.svg" alt=""></span>-->
+                    <!--            <span class="icon"><img src="{% static 'assets/images/icons/check-cirlce.svg' %}" alt=""></span>-->
                     <!--            <span class="text">Quality verified</span>-->
                     <!--        </li>-->
                     <!--        <li class="sidebar-list__item flx-align gap-2 font-14 fw-300 mb-2">-->
-                    <!--            <span class="icon"><img src="assets/images/icons/check-cirlce.svg" alt=""></span>-->
+                    <!--            <span class="icon"><img src="{% static 'assets/images/icons/check-cirlce.svg' %}" alt=""></span>-->
                     <!--            <span class="text">Use for a single project</span>-->
                     <!--        </li>-->
                     <!--        <li class="sidebar-list__item flx-align gap-2 font-14 fw-300">-->
-                    <!--            <span class="icon"><img src="assets/images/icons/check-cirlce.svg" alt=""></span>-->
+                    <!--            <span class="icon"><img src="{% static 'assets/images/icons/check-cirlce.svg' %}" alt=""></span>-->
                     <!--            <span class="text">Non-paying users only</span>-->
                     <!--        </li>-->
                     <!--    </ul>-->
@@ -400,38 +455,36 @@
                         </div>
                     </div>
 
+                    {% if product.id not in cart_ids %}
+                    <a href="{% url 'add_to_cart' product.code %}"
+                        class="btn btn-main d-flex w-100 justify-content-center align-items-center gap-2 pill px-sm-5 mt-32">
+                        <img src="{% static 'assets/images/icons/add-to-cart.svg' %}" alt="">
+                        Add To Cart
+                    </a>
+                    {% else %}
                     <div class="cart-quantity mt-32" aria-label="Mahsulot soni">
                         <button type="button" class="cart-quantity__btn qty-btn" data-action="decrease">−</button>
                         <input type="number" class="cart-quantity__input qty-input" value="{{ cart_qty }}" min="1" aria-label="Soni">
                         <button type="button" class="cart-quantity__btn qty-btn" data-action="increase">+</button>
                     </div>
-
-                    {% if product.id not in cart_ids %}
-                    <form method="POST" action="{% url 'add_to_cart' product.code %}" class="add-cart-form">
-                        {% csrf_token %}
-                        <input type="hidden" name="quantity" class="hidden-quantity" value="{{ cart_qty }}">
-                        <button type="submit"
-                            class="btn btn-main d-flex w-100 justify-content-center align-items-center gap-2 pill px-sm-5 mt-3">
-                            <img src="{% static 'assets/images/icons/add-to-cart.svg' %}" alt="">
-                            Add To Cart
-                        </button>
-                    </form>
-                    {% else %}
-                    <form method="POST" action="{% url 'update_cart_quantity' product.code %}" class="add-cart-form">
-                        {% csrf_token %}
-                        <input type="hidden" name="quantity" class="hidden-quantity" value="{{ cart_qty }}">
-                        <div class="d-flex gap-2 mt-3">
+                    <div class="d-flex gap-2 mt-3">
+                        <form method="POST" action="{% url 'update_cart_quantity' product.code %}" class="add-cart-form flex-grow-1">
+                            {% csrf_token %}
+                            <input type="hidden" name="quantity" class="hidden-quantity" value="{{ cart_qty }}">
                             <button type="submit"
-                                class="btn btn-main w-100 d-flex justify-content-center align-items-center gap-2 pill">
-                                <img src="{% static 'assets/images/icons/add-to-cart.svg' %}" alt="">
-                                Update Cart
+                                class="btn btn-main w-100 d-flex justify-content-center align-items-center gap-2 pill py-2 fw-semibold"
+                                style="font-size:14px; min-height:40px;">
+                                <img src="{% static 'assets/images/icons/add-to-cart.svg' %}" alt="" style="height:16px;">
+                                Update
                             </button>
-                            <a href="{% url 'remove_from_cart' product.code %}"
-                                class="btn btn-outline-danger d-flex justify-content-center align-items-center gap-2 pill px-3">
-                                <i class="fas fa-trash"></i>
-                            </a>
-                        </div>
-                    </form>
+                        </form>
+                        <button type="button"
+                            class="btn btn-danger d-flex justify-content-center align-items-center gap-2 pill py-2 remove-cart-btn fw-semibold"
+                            style="font-size:14px; min-height:40px; min-width:120px;"
+                            data-product-code="{{ product.code }}">
+                            <i class="fas fa-trash" style="font-size:14px;"></i> Remove
+                        </button>
+                    </div>
                     {% endif %}
                     {% if product.id in wishlist_ids %}
                     <a href="{% url 'delete_wishlist' product.code %}"
@@ -473,27 +526,45 @@
 </div>
 <!-- ======================= Product Details Section End ==================== -->
 
+<!-- ======================== Delete Confirmation Modal ========================= -->
+<div class="modal fade" id="deleteCartModal" tabindex="-1" aria-labelledby="deleteCartLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteCartLabel">Mahsulotni o'chirish</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Bu mahsulotni savatdan o'chirmoqchimisiz?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bekor qilish</button>
+                <a href="#" class="btn btn-danger" id="confirmRemoveCartBtn">Ha, o'chirish</a>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- ======================== Brand Section Start ========================= -->
 <div class="brand ">
     <div class="container container">
         <div class="brand-slider">
             <div class="brand-item d-flex align-items-center justify-content-center">
-                <img src="assets/images/thumbs/brand-img1.png" alt="">
+                <img src="{% static 'assets/images/thumbs/brand-img1.png' %}" alt="">
             </div>
             <div class="brand-item d-flex align-items-center justify-content-center">
-                <img src="assets/images/thumbs/brand-img2.png" alt="">
+                <img src="{% static 'assets/images/thumbs/brand-img2.png' %}" alt="">
             </div>
             <div class="brand-item d-flex align-items-center justify-content-center">
-                <img src="assets/images/thumbs/brand-img3.png" alt="">
+                <img src="{% static 'assets/images/thumbs/brand-img3.png' %}" alt="">
             </div>
             <div class="brand-item d-flex align-items-center justify-content-center">
-                <img src="assets/images/thumbs/brand-img4.png" alt="">
+                <img src="{% static 'assets/images/thumbs/brand-img4.png' %}" alt="">
             </div>
             <div class="brand-item d-flex align-items-center justify-content-center">
-                <img src="assets/images/thumbs/brand-img5.png" alt="">
+                <img src="{% static 'assets/images/thumbs/brand-img5.png' %}" alt="">
             </div>
             <div class="brand-item d-flex align-items-center justify-content-center">
-                <img src="assets/images/thumbs/brand-img3.png" alt="">
+                <img src="{% static 'assets/images/thumbs/brand-img3.png' %}" alt="">
             </div>
         </div>
     </div>
@@ -541,6 +612,19 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     syncQuantity();
+
+    // Remove from cart with confirmation
+    var deleteModal = new bootstrap.Modal(document.getElementById('deleteCartModal'));
+    var removeBtn = document.querySelector('.remove-cart-btn');
+    var confirmBtn = document.getElementById('confirmRemoveCartBtn');
+
+    if (removeBtn && confirmBtn) {
+        removeBtn.addEventListener('click', function() {
+            var productCode = this.dataset.productCode;
+            confirmBtn.href = "{% url 'remove_from_cart' 'PRODUCT_CODE' %}".replace('PRODUCT_CODE', productCode);
+            deleteModal.show();
+        });
+    }
 });
 </script>
 {% endblock %}

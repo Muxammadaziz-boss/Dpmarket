@@ -56,12 +56,14 @@ def product_detail(request, code):
         "cart_ids": [],
         "wishlist_ids": [],
         "cart_qty": 1,
+        "is_in_wishlist": False,
     }
     if request.user.is_authenticated:
         wishlist_ids = models.WishList.objects.filter(user=request.user).values_list('product_id', flat=True)
         cart_ids = models.CartProduct.objects.filter(cart__user=request.user).values_list('product_id', flat=True)
         context['wishlist_ids'] = wishlist_ids
         context['cart_ids'] = cart_ids
+        context['is_in_wishlist'] = product.id in wishlist_ids
         cart_product = models.CartProduct.objects.filter(cart__user=request.user, cart__status=1, product=product).first()
         if cart_product:
             context['cart_qty'] = cart_product.count

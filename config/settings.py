@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-abqaql=y8w8w77vv9&aq(tnqj5j-c1a1030nfnl$bdwe#wbc(y
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -123,7 +124,12 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 
-MEDIA_ROOT ='media'
+# Media files - AWS Lambda va o'xshash serverless muhitda /tmp dan foydalanish
+if os.environ.get('AWS_LAMBDA_FUNCTION_NAME'):
+    MEDIA_ROOT = '/tmp/media'
+else:
+    MEDIA_ROOT = BASE_DIR / 'media'
+
 MEDIA_URL = '/media/'
 
 AUTH_USER_MODEL = 'main.User'

@@ -1,0 +1,7 @@
+Django==5.2.14
+psycopg2-binary==2.9.9
+dj-database-url==2.1.0
+python-decouple==3.8
+django-storages==1.14.2
+boto3==1.26.137
+Pillow==10.0.0

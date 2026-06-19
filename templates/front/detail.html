@@ -129,14 +129,14 @@
 
                         <ul class="breadcrumb-list flx-align gap-2 mb-2">
                             <li class="breadcrumb-list__item font-14 text-body">
-                                <a href="index.html" class="breadcrumb-list__link text-body hover-text-main">Home</a>
+                                <a href="index.html" class="breadcrumb-list__link text-body hover-text-main">Bosh sahifa</a>
                             </li>
                             <li class="breadcrumb-list__item font-14 text-body">
                                 <span class="breadcrumb-list__icon font-10"><i class="fas fa-chevron-right"></i></span>
                             </li>
                             <li class="breadcrumb-list__item font-14 text-body">
                                 <a href="all-product.html"
-                                    class="breadcrumb-list__link text-body hover-text-main">Products</a>
+                                    class="breadcrumb-list__link text-body hover-text-main">Mahsulotlar</a>
                             </li>
                             <li class="breadcrumb-list__item font-14 text-body">
                                 <span class="breadcrumb-list__icon font-10"><i class="fas fa-chevron-right"></i></span>
@@ -155,15 +155,15 @@
                             </div>
                             <div class="breadcrumb-content__item text-heading fw-500 flx-align gap-2">
                                 <span class="icon"><img src="{% static 'assets/images/icons/cart-icon.svg' %}" alt=""></span>
-                                <span class="text">158 sales</span>
+                                <span class="text">158 ta sotuv</span>
                             </div>
                             <div class="breadcrumb-content__item text-heading fw-500 flx-align gap-2">
                                 <span class="icon"><img src="{% static 'assets/images/icons/check-icon.svg' %}" alt=""></span>
-                                <span class="text">Recently Updated</span>
+                                <span class="text">Yaqinda yangilangan</span>
                             </div>
                             <div class="breadcrumb-content__item text-heading fw-500 flx-align gap-2">
                                 <span class="icon"><img src="{% static 'assets/images/icons/check-icon.svg' %}" alt=""></span>
-                                <span class="text">Well Documented</span>
+                                <span class="text">To'liq hujjatlashtirilgan</span>
                             </div>
                         </div>
 
@@ -179,7 +179,7 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link active" id="pills-product-details-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-product-details" type="button" role="tab"
-                        aria-controls="pills-product-details" aria-selected="true">Product Details</button>
+                        aria-controls="pills-product-details" aria-selected="true">Mahsulot tafsilotlari</button>
                 </li>
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="pills-rating-tab" data-bs-toggle="pill" data-bs-target="#pills-rating"
@@ -200,7 +200,7 @@
                 <li class="nav-item" role="presentation">
                     <button class="nav-link" id="pills-comments-tab" data-bs-toggle="pill"
                         data-bs-target="#pills-comments" type="button" role="tab" aria-controls="pills-comments"
-                        aria-selected="false">Comments (50)</button>
+                        aria-selected="false">Izohlar (50)</button>
                 </li>
             </ul>
             <div class="social-share">
@@ -241,14 +241,18 @@
                         <!-- Product Details Content Start -->
                         <div class="product-details">
                             <div class="product-details__thumb">
+                                {% if product.image %}
                                 <img src="{{product.image.url}}" alt="{{product.name}}" style="max-height: 450px; width: 100%; object-fit: cover; border-radius: 8px;">
+                                {% else %}
+                                <img src="{% static 'assets/images/thumbs/product-details.png' %}" alt="{{product.name}}" style="max-height: 450px; width: 100%; object-fit: cover; border-radius: 8px;">
+                                {% endif %}
                             </div>
                             <p class="product-details__desc"> {{product.description}} </p>
 
 
                             <div class="more-item">
                                 <div class="flx-between mb-4">
-                                    <h5 class="more-item__title">More Items</h5>
+                                    <h5 class="more-item__title">Boshqa mahsulotlar</h5>
                                 </div>
                                 <div class="row gy-4">
                                     {% for item in related_products %}
@@ -256,7 +260,11 @@
                                         <div class="product-card">
                                             <div class="product-card__thumb d-flex">
                                                 <a href="{% url 'product_detail' item.code %}" class="link w-100">
+                                                    {% if item.image %}
                                                     <img src="{{ item.image.url }}" alt="{{ item.name }}" class="cover-img">
+                                                    {% else %}
+                                                    <img src="{% static 'assets/images/thumbs/product-img1.png' %}" alt="{{ item.name }}" class="cover-img">
+                                                    {% endif %}
                                                 </a>
                                             </div>
                                             <div class="product-card__content">
@@ -312,11 +320,11 @@
                                             </ul>
                                             <span class="star-rating__text text-body"> 5.0</span>
                                         </div>
-                                        <span class="product-review__reason">For <span
-                                                class="product-review__subject">Customer Support</span> </span>
+                                        <span class="product-review__reason">Uchun <span
+                                                class="product-review__subject">Mijozlarni qo'llab-quvvatlash</span> </span>
                                     </div>
                                     <div class="product-review__date">
-                                        by <a href="#" class="product-review__user text--base">John Doe </a> 2 month ago
+                                        tomonidan <a href="#" class="product-review__user text--base">John Doe </a> 2 oy oldin
                                     </div>
                                 </div>
                                 <div class="product-review__body">
@@ -342,11 +350,11 @@
                                             </ul>
                                             <span class="star-rating__text text-body"> 5.0</span>
                                         </div>
-                                        <span class="product-review__reason">For <span
-                                                class="product-review__subject">Customer Support</span> </span>
+                                        <span class="product-review__reason">Uchun <span
+                                                class="product-review__subject">Mijozlarni qo'llab-quvvatlash</span> </span>
                                     </div>
                                     <div class="product-review__date">
-                                        by <a href="#" class="product-review__user text--base">John Doe </a> 2 month ago
+                                        tomonidan <a href="#" class="product-review__user text--base">John Doe </a> 2 oy oldin
                                     </div>
                                 </div>
                                 <div class="product-review__body">
@@ -366,7 +374,7 @@
 
                         <!-- Comment Start -->
                         <div class="comment mt-64 mb-64">
-                            <h5 class="mb-32">2 Comments</h5>
+                                    <h5 class="mb-32">2 ta izoh</h5>
                             <ul class="comment-list">
                                 <li class="comment-list__item d-flex align-items-start gap-sm-4 gap-3">
                                     <div class="comment-list__thumb flex-shrink-0">
@@ -376,11 +384,11 @@
                                         <div class="flx-between gap-2 align-items-start">
                                             <div>
                                                 <h6 class="comment-list__name font-18 mb-sm-2 mb-1">Jenny Wilson</h6>
-                                                <span class="comment-list__date font-14">Jan 21, 2024 at 11:25 pm</span>
+                                                <span class="comment-list__date font-14">Jan 21, 2024, 23:25</span>
                                             </div>
                                             <a class="comment-list__reply fw-500 flx-align gap-2 hover-text-decoration-underline"
                                                 href="#comment-box">
-                                                Reply
+                                                Javob berish
                                                 <span class="icon"><img src="{% static 'assets/images/icons/reply-icon.svg' %}"
                                                         alt=""></span>
                                             </a>
@@ -407,7 +415,7 @@
                                                     </div>
                                                     <a class="comment-list__reply fw-500 flx-align gap-2 hover-text-decoration-underline"
                                                         href="#comment-box">
-                                                        Reply
+                                                        Javob berish
                                                         <span class="icon"><img src="{% static 'assets/images/icons/reply-icon.svg' %}"
                                                                 alt=""></span>
                                                     </a>
@@ -447,7 +455,7 @@
 
                     <div class="flx-between mt-3">
                         <div class="common-check mb-0">
-                            <label class="form-check-label mb-0 fw-300 text-body">Maxsulot narxi:</label>
+                            <label class="form-check-label mb-0 fw-300 text-body">Mahsulot narxi:</label>
                         </div>
                         <div class="flx-align gap-2">
                             <span class="product-card__prevPrice text-decoration-line-through">${{product.price}}</span>
@@ -459,7 +467,7 @@
                     <a href="{% url 'add_to_cart' product.code %}"
                         class="btn btn-main d-flex w-100 justify-content-center align-items-center gap-2 pill px-sm-5 mt-32">
                         <img src="{% static 'assets/images/icons/add-to-cart.svg' %}" alt="">
-                        Add To Cart
+                        Savatga qo'shish
                     </a>
                     {% else %}
                     <div class="cart-quantity mt-32" aria-label="Mahsulot soni">
@@ -475,26 +483,26 @@
                                 class="btn btn-main w-100 d-flex justify-content-center align-items-center gap-2 pill py-2 fw-semibold"
                                 style="font-size:14px; min-height:40px;">
                                 <img src="{% static 'assets/images/icons/add-to-cart.svg' %}" alt="" style="height:16px;">
-                                Update
+                                Yangilash
                             </button>
                         </form>
                         <button type="button"
                             class="btn btn-danger d-flex justify-content-center align-items-center gap-2 pill py-2 remove-cart-btn fw-semibold"
                             style="font-size:14px; min-height:40px; min-width:120px;"
                             data-product-code="{{ product.code }}">
-                            <i class="fas fa-trash" style="font-size:14px;"></i> Remove
+                            <i class="fas fa-trash" style="font-size:14px;"></i> O'chirish
                         </button>
                     </div>
                     {% endif %}
                     {% if product.id in wishlist_ids %}
                     <a href="{% url 'delete_wishlist' product.code %}"
                         class="btn btn-main d-flex w-100 justify-content-center align-items-center gap-2 pill px-sm-5 mt-32">
-                        <i class="fa fa-heart" style="font-size:24px; color:white;"></i> Remove from Wishlist
+                        <i class="fa fa-heart" style="font-size:24px; color:white;"></i> Saralanganlardan o'chirish
                     </a>
                     {% else %}
                     <a href="{% url 'add_wishlist' product.code %}"
                         class="btn btn-main d-flex w-100 justify-content-center align-items-center gap-2 pill px-sm-5 mt-32">
-                        <i class="far fa-heart" style="font-size:24px; color:white;"></i> Add to Wishlist
+                        <i class="far fa-heart" style="font-size:24px; color:white;"></i> Saralanganlarga qo'shish
                     </a>
                     {% endif %}
 
@@ -502,7 +510,7 @@
                     <!-- Meta Attribute List Start -->
                     <ul class="meta-attribute">
                         <li class="meta-attribute__item">
-                            <span class="name">Maxsulot soni</span>
+                            <span class="name">Mahsulot soni</span>
                             <span class="details">{{product.count}}</span>
                         </li>
 
@@ -511,7 +519,7 @@
                             <span class="details">{{product.created_at}}</span>
                         </li>
                         <li class="meta-attribute__item">
-                            <span class="name">Category</span>
+                            <span class="name">Kategoriya</span>
                             <span class="details">{{product.category.name}}</span>
                         </li>
 

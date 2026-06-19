@@ -15,16 +15,16 @@
         <div class="row justify-content-center">
             <div class="col-lg-12">
                 <div class="breadcrumb-four-content">
-                    <h3 class="breadcrumb-four-content__title text-center mb-3 text-capitalize">Wishlist</h3>
+                    <h3 class="breadcrumb-four-content__title text-center mb-3 text-capitalize">Saralanganlar</h3>
                     <ul class="breadcrumb-list flx-align justify-content-center gap-2 mb-2">
                         <li class="breadcrumb-list__item font-14 text-body">
-                            <a href="index.html" class="breadcrumb-list__link text-body hover-text-main">Home</a>
+                            <a href="{% url 'index' %}" class="breadcrumb-list__link text-body hover-text-main">Bosh sahifa</a>
                         </li>
                         <li class="breadcrumb-list__item font-14 text-body">
                             <span class="breadcrumb-list__icon font-10"><i class="fas fa-chevron-right"></i></span>
                         </li>
                         <li class="breadcrumb-list__item font-14 text-body">
-                            <span class="breadcrumb-list__text">My Wishlist</span>
+                            <span class="breadcrumb-list__text">Mening saralanganlarim</span>
                         </li>
                     </ul>
 
@@ -42,9 +42,9 @@
                 <table class="table style-two">
                     <thead>
                       <tr>
-                        <th>Product Details</th>
-                        <th>Price</th>
-                        <th>Actions</th>
+                        <th>Mahsulot tafsilotlari</th>
+                        <th>Narx</th>
+                        <th>Amallar</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -54,13 +54,17 @@
                             <div class="cart-item">
                                 <div class="d-flex align-items-center gap-3">
                                     <div class="cart-item__thumb">
-                                        <a href="product-details.html" class="link">
+                                        <a href="{% url 'product_detail' product.product.code %}" class="link">
+                                            {% if product.product.image %}
                                             <img src="{{product.product.image.url}}" alt="" class="cover-img">
+                                            {% else %}
+                                            <img src="{% static 'assets/images/thumbs/product-img1.png' %}" alt="" class="cover-img">
+                                            {% endif %}
                                         </a>
                                     </div>
                                     <div class="cart-item__content">
-                                        <h6 class="cart-item__title font-heading fw-700 text-capitalize font-18 mb-4"> <a href="product-details.html" class="link">{{product.product.name}}</a></h6>
-                                        <span class="cart-item__price font-18 text-heading fw-500">Category: <span class="text-body font-14">{{product.product.category.name}}</span></span>
+                                        <h6 class="cart-item__title font-heading fw-700 text-capitalize font-18 mb-4"> <a href="{% url 'product_detail' product.product.code %}" class="link">{{product.product.name}}</a></h6>
+                                        <span class="cart-item__price font-18 text-heading fw-500">Kategoriya: <span class="text-body font-14">{{product.product.category.name}}</span></span>
                                     </div>
                                 </div>
                             </div>
@@ -70,8 +74,8 @@
                         </td>
                         <td>
                             <div class="flx-align gap-2">
-                                <a type="button" class="btn btn-main btn-sm pill">Add to Cart</a>
-                                <a href="{% url 'delete_wishlist' product.product.code %}" type="button" class="btn btn-danger btn-sm pill">Remove</a>
+                                <a href="{% url 'add_to_cart' product.product.code %}" type="button" class="btn btn-main btn-sm pill">Savatga qo'shish</a>
+                                <a href="{% url 'delete_wishlist' product.product.code %}" type="button" class="btn btn-danger btn-sm pill">O'chirish</a>
                             </div>
                         </td>
                       </tr>

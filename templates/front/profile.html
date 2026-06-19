@@ -39,10 +39,10 @@
             </div>
 <ul class="nav nav-bordered nav-pills mt-4" id="pills-tab" role="tablist">
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-Settingss-tab" data-bs-toggle="pill" data-bs-target="#pills-Settingss" type="button" role="tab">Settings</button>
+        <button class="nav-link" id="pills-Settingss-tab" data-bs-toggle="pill" data-bs-target="#pills-Settingss" type="button" role="tab">Sozlamalar</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="pills-statement-tab" data-bs-toggle="pill" data-bs-target="#pills-statement" type="button" role="tab">Statement</button>
+        <button class="nav-link active" id="pills-statement-tab" data-bs-toggle="pill" data-bs-target="#pills-statement" type="button" role="tab">Hisobot</button>
     </li>
 </ul>
         </div>
@@ -59,13 +59,13 @@
             <div class="row gy-4">
     <div class="col-lg-4 pe-xl-5">
         <div class="setting-sidebar ">
-            <h6 class="setting-sidebar__title">Your Details</h6>
+            <h6 class="setting-sidebar__title">Sizning ma'lumotlaringiz</h6>
             <ul class="setting-sidebar-list">
-                <li class="setting-sidebar-list__item"><a href="#personalInfo" class="setting-sidebar-list__link active" >Personal Information</a></li>
-                <li class="setting-sidebar-list__item"><a href="#profile" class="setting-sidebar-list__link">Profile</a></li>
-                <li class="setting-sidebar-list__item"><a href="#paymentSystem" class="setting-sidebar-list__link">Setup Payment System</a></li>
-                <li class="setting-sidebar-list__item"><a href="#emailSetting" class="setting-sidebar-list__link">Email Setting</a></li>
-                <li class="setting-sidebar-list__item"><a href="#socialNetwork" class="setting-sidebar-list__link">Social Networks</a></li>
+                <li class="setting-sidebar-list__item"><a href="#personalInfo" class="setting-sidebar-list__link active" >Shaxsiy ma'lumotlar</a></li>
+                <li class="setting-sidebar-list__item"><a href="#profile" class="setting-sidebar-list__link">Profil</a></li>
+                <li class="setting-sidebar-list__item"><a href="#paymentSystem" class="setting-sidebar-list__link">To'lov tizimini sozlash</a></li>
+                <li class="setting-sidebar-list__item"><a href="#emailSetting" class="setting-sidebar-list__link">Email sozlamalari</a></li>
+                <li class="setting-sidebar-list__item"><a href="#socialNetwork" class="setting-sidebar-list__link">Ijtimoiy tarmoqlar</a></li>
             </ul>
         </div>
     </div>
@@ -76,29 +76,29 @@
             <div class="setting-content" data-bs-spy="scroll" data-bs-target="#sidebar-scroll-spy">
                 <div class="card common-card border border-gray-five overflow-hidden mb-24"  id="personalInfo">
                     <div class="card-header">
-                        <h6 class="title">Personal Information</h6>
+                        <h6 class="title">Shaxsiy ma'lumotlar</h6>
                     </div>
 <form method="post" enctype="multipart/form-data">{% csrf_token %}
                         <div class="card-body">
                         <div class="row gy-3">
                             <div class="col-sm-6 col-xs-6">
-                                <label for="fName" class="form-label">First Name</label>
+                                <label for="fName" class="form-label">Ism</label>
                                 <input type="text"  name="first_name" value="{{user.first_name}}" class="common-input common-input--md border--color-dark bg--white" id="fName">
                             </div>
                             <div class="col-sm-6 col-xs-6">
-                                <label for="lName" class="form-label">Last Name</label>
+                                <label for="lName" class="form-label">Familiya</label>
                                 <input type="text"  name="last_name" value="{{user.last_name}}" class="common-input common-input--md border--color-dark bg--white" id="lName">
                             </div>
                             <div class="col-sm-6 col-xs-6">
-                                <label for="country" class="form-label">Phone</label>
+                                <label for="country" class="form-label">Telefon</label>
                                 <input type="text" name="phone" value="{{user.phone}}" class="common-input common-input--md border--color-dark bg--white" id="country">
                             </div>
                             <div class="col-sm-6 col-xs-6">
-                                <label for="address" class="form-label">Address</label>
+                                <label for="address" class="form-label">Manzil</label>
                                 <input type="text" name="address" value="{{user.address}}" class="common-input common-input--md border--color-dark bg--white" id="address">
                             </div>
                             <div class="col-sm-6 col-xs-6">
-                                <label for="city" class="form-label">Username</label>
+                                <label for="city" class="form-label">Foydalanuvchi nomi</label>
                                 <input type="text" name="username" value="{{user.username}}" class="common-input common-input--md border--color-dark bg--white" id="city">
                             </div>
                             <div class="col-sm-6 col-xs-6">
@@ -108,7 +108,7 @@
                                 </div>
 
                             </div>
-                            <button type="submit" class="btn w-100 btn-main btn-md">Save Information</button>
+                            <button type="submit" class="btn w-100 btn-main btn-md">Ma'lumotlarni saqlash</button>
 
                         </div>
                     </div>
@@ -117,73 +117,73 @@
                 </div>
                 <div class="card common-card border border-gray-five overflow-hidden mb-24" id="profile">
                     <div class="card-header">
-                        <h6 class="title">Personal Information</h6>
+                        <h6 class="title">Profil ma'lumotlari</h6>
                     </div>
                     <div class="card-body">
                         <div class="row gy-3">
                             <div class="col-sm-6 col-xs-6">
-                                <label for="fileUpload" class="form-label">Upload a New Avatar</label>
+                                <label for="fileUpload" class="form-label">Yangi avatar yuklash</label>
                                 <input type="file" class="common-input common-input--md border--color-dark bg--white" id="fileUpload">
                             </div>
                             <div class="col-sm-6 col-xs-6">
-                                <label for="fileUploadTwo" class="form-label">Upload a New Avatar</label>
+                                <label for="fileUploadTwo" class="form-label">Yangi avatar yuklash</label>
                                 <input type="file" class="common-input common-input--md border--color-dark bg--white" id="fileUploadTwo">
                             </div>
                             <div class="col-sm-6 col-xs-6">
-                                <label for="ProfileHeading" class="form-label">Profile Heading</label>
+                                <label for="ProfileHeading" class="form-label">Profil sarlavhasi</label>
                                 <input type="text" class="common-input common-input--md border--color-dark bg--white" id="ProfileHeading">
                             </div>
                             <div class="col-sm-6 col-xs-6">
-                                <label class="form-label">Show Country on Your</label>
+                                <label class="form-label">Mamlakatingizni ko'rsatish</label>
                                 <div class="flx-align gap-3 mt-2">
                                     <div class="common-check common-radio mb-0">
                                         <input class="form-check-input" type="radio" name="showCountry" id="yes">
-                                        <label class="form-check-label ps-2" for="yes">Yes</label>
+                                        <label class="form-check-label ps-2" for="yes">Ha</label>
                                     </div>
                                     <div class="common-check common-radio mb-0">
                                         <input class="form-check-input" type="radio" name="showCountry" id="no">
-                                        <label class="form-check-label ps-2" for="no">No</label>
+                                        <label class="form-check-label ps-2" for="no">Yo'q</label>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-sm-12">
-                                <label for="aboutProfile" class="form-label">Write Something About Your Profile</label>
+                                <label for="aboutProfile" class="form-label">Profil haqida biror narsa yozing</label>
                                 <textarea class="common-input common-input--md border--color-dark bg--white" id="aboutProfile"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
                       <div class="card-header">
-                        <h6 class="title">Social Network Settings</h6>
+                        <h6 class="title">Ijtimoiy tarmoq sozlamalari</h6>
                     </div>
                     <div class="card-body">
                         <div class="row gy-3">
                             <div class="col-sm-6 col-xs-6">
-                                <label for="facebookUrl" class="form-label">Facebook Profile Url</label>
+                                <label for="facebookUrl" class="form-label">Facebook profil havolasi</label>
                                 <div class="position-relative">
-                                    <input type="url" class="common-input common-input--md common-input--withLeftIcon" id="facebookUrl" placeholder="Facebook Profile Url">
+                                    <input type="url" class="common-input common-input--md common-input--withLeftIcon" id="facebookUrl" placeholder="Facebook profil havolasi">
                                     <span class="input-icon input-icon--left text-main"><i class="fab fa-facebook-f"></i> </span>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-xs-6">
-                                <label for="linkedinUrl" class="form-label">Linkedin Profile Url</label>
+                                <label for="linkedinUrl" class="form-label">Linkedin profil havolasi</label>
                                 <div class="position-relative">
-                                    <input type="url" class="common-input common-input--md common-input--withLeftIcon" id="linkedinUrl" placeholder="Linkedin Profile Url">
+                                    <input type="url" class="common-input common-input--md common-input--withLeftIcon" id="linkedinUrl" placeholder="Linkedin profil havolasi">
                                     <span class="input-icon input-icon--left text-main"><i class="fab fa-linkedin-in"></i></span>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-xs-6">
-                                <label for="behanceUrl" class="form-label">Behance Profile Url</label>
+                                <label for="behanceUrl" class="form-label">Behance profil havolasi</label>
                                 <div class="position-relative">
-                                    <input type="url" class="common-input common-input--md common-input--withLeftIcon" id="behanceUrl" placeholder="Behance Profile Url">
+                                    <input type="url" class="common-input common-input--md common-input--withLeftIcon" id="behanceUrl" placeholder="Behance profil havolasi">
                                     <span class="input-icon input-icon--left text-main"><i class="fab fa-behance"></i> </span>
                                 </div>
                             </div>
                             <div class="col-sm-6 col-xs-6">
-                                <label for="dribbleUrl" class="form-label">Dribble Profile Url</label>
+                                <label for="dribbleUrl" class="form-label">Dribble profil havolasi</label>
                                 <div class="position-relative">
-                                    <input type="url" class="common-input common-input--md common-input--withLeftIcon" id="dribbleUrl" placeholder="Dribble Profile Url">
+                                    <input type="url" class="common-input common-input--md common-input--withLeftIcon" id="dribbleUrl" placeholder="Dribble profil havolasi">
                                     <span class="input-icon input-icon--left text-main"><i class="fab fa-dribbble"></i> </span>
                                 </div>
                             </div>
@@ -204,23 +204,23 @@
         <div class="statement-item card common-card border border-gray-five">
             <div class="card-body">
                 <div class="statement-item__header">
-                    <h6 class="statement-item__title">Total Earning</h6>
+                    <h6 class="statement-item__title">Jami daromad</h6>
                 </div>
                 <ul class="statement-list">
                     <li class="statement-list__item text-center">
-                        <span class="statement-list__text font-13">My Funds</span>
+                        <span class="statement-list__text font-13">Mening mablag'larim</span>
                         <h6 class="statement-list__amount mb-0 mt-1 fw-600">$0.00</h6>
                     </li>
                     <li class="statement-list__item text-center">
-                        <span class="statement-list__text font-13">Earnings</span>
+                        <span class="statement-list__text font-13">Daromadlar</span>
                         <h6 class="statement-list__amount mb-0 mt-1 fw-600">$0.00</h6>
                     </li>
                     <li class="statement-list__item text-center">
-                        <span class="statement-list__text font-13">Tax Withheld</span>
+                        <span class="statement-list__text font-13">Ushlab qolingan soliq</span>
                         <h6 class="statement-list__amount mb-0 mt-1 fw-600">$0.00</h6>
                     </li>
                     <li class="statement-list__item text-center">
-                        <span class="statement-list__text font-13">Fees</span>
+                        <span class="statement-list__text font-13">Komissiyalar</span>
                         <h6 class="statement-list__amount mb-0 mt-1 fw-600">$0.00</h6>
                     </li>
                 </ul>
@@ -231,23 +231,23 @@
         <div class="statement-item card common-card border border-gray-five">
             <div class="card-body">
                 <div class="statement-item__header">
-                    <h6 class="statement-item__title">Monthly Earnings</h6>
+                    <h6 class="statement-item__title">Oylik daromad</h6>
                 </div>
                 <ul class="statement-list">
                     <li class="statement-list__item text-center">
-                        <span class="statement-list__text font-13">My Funds</span>
+                        <span class="statement-list__text font-13">Mening mablag'larim</span>
                         <h6 class="statement-list__amount mb-0 mt-1 fw-600">$0.00</h6>
                     </li>
                     <li class="statement-list__item text-center">
-                        <span class="statement-list__text font-13">Earnings</span>
+                        <span class="statement-list__text font-13">Daromadlar</span>
                         <h6 class="statement-list__amount mb-0 mt-1 fw-600">$0.00</h6>
                     </li>
                     <li class="statement-list__item text-center">
-                        <span class="statement-list__text font-13">Tax Withheld</span>
+                        <span class="statement-list__text font-13">Ushlab qolingan soliq</span>
                         <h6 class="statement-list__amount mb-0 mt-1 fw-600">$0.00</h6>
                     </li>
                     <li class="statement-list__item text-center">
-                        <span class="statement-list__text font-13">Fees</span>
+                        <span class="statement-list__text font-13">Komissiyalar</span>
                         <h6 class="statement-list__amount mb-0 mt-1 fw-600">$0.00</h6>
                     </li>
                 </ul>
@@ -261,92 +261,92 @@
                     <table class="table text-body mt--24">
                         <thead>
                             <tr>
-                                <th>Date</th>
-                                <th>Order ID</th>
-                                <th>Type</th>
-                                <th>Price</th>
-                                <th>Details</th>
+                                <th>Sana</th>
+                                <th>Buyurtma ID</th>
+                                <th>Turi</th>
+                                <th>Narxi</th>
+                                <th>Batafsil</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td data-label="Date">2022-12-31 03:36 AM</td>
-                                <td data-label="Order ID">#DR54745425478 </td>
-                                <td data-label="Type"> WordPress</td>
-                                <td data-label="Price"> 59.00 USD</td>
-                                <td data-label="Details">
+                                <td data-label="Sana">2022-12-31 03:36 AM</td>
+                                <td data-label="Buyurtma ID">#DR54745425478 </td>
+                                <td data-label="Turi"> WordPress</td>
+                                <td data-label="Narxi"> 59.00 USD</td>
+                                <td data-label="Batafsil">
                                     <a href="#" class="btn btn-main"><i class="far fa-eye"></i></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td data-label="Date">2022-12-31 03:36 AM</td>
-                                <td data-label="Order ID">#DR54745425478 </td>
-                                <td data-label="Type"> WordPress</td>
-                                <td data-label="Price"> 59.00 USD</td>
-                                <td data-label="Details">
+                                <td data-label="Sana">2022-12-31 03:36 AM</td>
+                                <td data-label="Buyurtma ID">#DR54745425478 </td>
+                                <td data-label="Turi"> WordPress</td>
+                                <td data-label="Narxi"> 59.00 USD</td>
+                                <td data-label="Batafsil">
                                     <a href="#" class="btn btn-main"><i class="far fa-eye"></i></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td data-label="Date">2022-12-31 03:36 AM</td>
-                                <td data-label="Order ID">#DR54745425478 </td>
-                                <td data-label="Type"> WordPress</td>
-                                <td data-label="Price"> 59.00 USD</td>
-                                <td data-label="Details">
+                                <td data-label="Sana">2022-12-31 03:36 AM</td>
+                                <td data-label="Buyurtma ID">#DR54745425478 </td>
+                                <td data-label="Turi"> WordPress</td>
+                                <td data-label="Narxi"> 59.00 USD</td>
+                                <td data-label="Batafsil">
                                     <a href="#" class="btn btn-main"><i class="far fa-eye"></i></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td data-label="Date">2022-12-31 03:36 AM</td>
-                                <td data-label="Order ID">#DR54745425478 </td>
-                                <td data-label="Type"> WordPress</td>
-                                <td data-label="Price"> 59.00 USD</td>
-                                <td data-label="Details">
+                                <td data-label="Sana">2022-12-31 03:36 AM</td>
+                                <td data-label="Buyurtma ID">#DR54745425478 </td>
+                                <td data-label="Turi"> WordPress</td>
+                                <td data-label="Narxi"> 59.00 USD</td>
+                                <td data-label="Batafsil">
                                     <a href="#" class="btn btn-main"><i class="far fa-eye"></i></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td data-label="Date">2022-12-31 03:36 AM</td>
-                                <td data-label="Order ID">#DR54745425478 </td>
-                                <td data-label="Type"> WordPress</td>
-                                <td data-label="Price"> 59.00 USD</td>
-                                <td data-label="Details">
+                                <td data-label="Sana">2022-12-31 03:36 AM</td>
+                                <td data-label="Buyurtma ID">#DR54745425478 </td>
+                                <td data-label="Turi"> WordPress</td>
+                                <td data-label="Narxi"> 59.00 USD</td>
+                                <td data-label="Batafsil">
                                     <a href="#" class="btn btn-main"><i class="far fa-eye"></i></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td data-label="Date">2022-12-31 03:36 AM</td>
-                                <td data-label="Order ID">#DR54745425478 </td>
-                                <td data-label="Type"> WordPress</td>
-                                <td data-label="Price"> 59.00 USD</td>
-                                <td data-label="Details">
+                                <td data-label="Sana">2022-12-31 03:36 AM</td>
+                                <td data-label="Buyurtma ID">#DR54745425478 </td>
+                                <td data-label="Turi"> WordPress</td>
+                                <td data-label="Narxi"> 59.00 USD</td>
+                                <td data-label="Batafsil">
                                     <a href="#" class="btn btn-main"><i class="far fa-eye"></i></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td data-label="Date">2022-12-31 03:36 AM</td>
-                                <td data-label="Order ID">#DR54745425478 </td>
-                                <td data-label="Type"> WordPress</td>
-                                <td data-label="Price"> 59.00 USD</td>
-                                <td data-label="Details">
+                                <td data-label="Sana">2022-12-31 03:36 AM</td>
+                                <td data-label="Buyurtma ID">#DR54745425478 </td>
+                                <td data-label="Turi"> WordPress</td>
+                                <td data-label="Narxi"> 59.00 USD</td>
+                                <td data-label="Batafsil">
                                     <a href="#" class="btn btn-main"><i class="far fa-eye"></i></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td data-label="Date">2022-12-31 03:36 AM</td>
-                                <td data-label="Order ID">#DR54745425478 </td>
-                                <td data-label="Type"> WordPress</td>
-                                <td data-label="Price"> 59.00 USD</td>
-                                <td data-label="Details">
+                                <td data-label="Sana">2022-12-31 03:36 AM</td>
+                                <td data-label="Buyurtma ID">#DR54745425478 </td>
+                                <td data-label="Turi"> WordPress</td>
+                                <td data-label="Narxi"> 59.00 USD</td>
+                                <td data-label="Batafsil">
                                     <a href="#" class="btn btn-main"><i class="far fa-eye"></i></a>
                                 </td>
                             </tr>
                             <tr>
-                                <td data-label="Date">2022-12-31 03:36 AM</td>
-                                <td data-label="Order ID">#DR54745425478 </td>
-                                <td data-label="Type"> WordPress</td>
-                                <td data-label="Price"> 59.00 USD</td>
-                                <td data-label="Details">
+                                <td data-label="Sana">2022-12-31 03:36 AM</td>
+                                <td data-label="Buyurtma ID">#DR54745425478 </td>
+                                <td data-label="Turi"> WordPress</td>
+                                <td data-label="Narxi"> 59.00 USD</td>
+                                <td data-label="Batafsil">
                                     <a href="#" class="btn btn-main"><i class="far fa-eye"></i></a>
                                 </td>
                             </tr>
@@ -366,7 +366,7 @@
                                 <option value="9">9</option>
                                 <option value="10">10</option>
                             </select>
-                            <span class="paginate-content__text fs-14">Showing 1 - 10 of 100</span>
+                            <span class="paginate-content__text fs-14">100 tadan 1 - 10 gacha ko'rsatilyapti</span>
                         </div>
                         <nav aria-label="Page navigation example">
                             <ul class="pagination common-pagination mt-0">
@@ -375,7 +375,7 @@
                               <li class="page-item"><a class="page-link" href="#">3</a></li>
                               <li class="page-item"><a class="page-link" href="#">4</a></li>
                               <li class="page-item">
-                                <a class="page-link flx-align gap-2 flex-nowrap" href="#">Next
+                                <a class="page-link flx-align gap-2 flex-nowrap" href="#">Keyingi
                                   <span class="icon line-height-1 font-20"><i class="las la-arrow-right"></i></span>
                                 </a>
                               </li>

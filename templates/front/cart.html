@@ -95,11 +95,11 @@
                     <table class="table style-two">
                         <thead>
                             <tr>
-                                <th>Product Details</th>
-                                <th>Price</th>
-                                <th>Count</th>
-                                <th>Total</th>
-                                <th>Actions</th>
+                                <th>Mahsulot tafsilotlari</th>
+                                <th>Narx</th>
+                                <th>Soni</th>
+                                <th>Jami</th>
+                                <th>Amallar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -110,7 +110,11 @@
                                             <div class="d-flex align-items-center gap-3">
                                                 <div class="cart-item__thumb">
                                                     <a href="{% url 'product_detail' item.product.code %}" class="link">
+                                                        {% if item.product.image %}
                                                         <img src="{{ item.product.image.url }}" alt="" class="cover-img">
+                                                        {% else %}
+                                                        <img src="{% static 'assets/images/thumbs/product-img1.png' %}" alt="" class="cover-img">
+                                                        {% endif %}
                                                     </a>
                                                 </div>
                                                 <div class="cart-item__content">
@@ -118,7 +122,7 @@
                                                         <a href="{% url 'product_detail' item.product.code %}" class="link">{{ item.product.name }}</a>
                                                     </h6>
                                                     <span class="cart-item__price font-14 text-body">
-                                                        Category: {{ item.product.category.name }}
+                                                        Kategoriya: {{ item.product.category.name }}
                                                     </span>
                                                 </div>
                                             </div>
@@ -147,8 +151,8 @@
                 </div>
             {% else %}
                 <div class="text-center py-5">
-                    <h4 class="mb-3">Shopping Cart</h4>
-                    <p class="text-body mb-0">Your cart is empty.</p>
+                    <h4 class="mb-3">Savat</h4>
+                    <p class="text-body mb-0">Savatingiz bo'sh.</p>
                 </div>
             {% endif %}
         </div>

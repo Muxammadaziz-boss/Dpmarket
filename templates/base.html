@@ -57,20 +57,20 @@
     <div class="mobile-menu d-lg-none d-block">
         <button type="button" class="close-button"> <i class="las la-times"></i> </button>
         <div class="mobile-menu__inner">
-            <a href="index.html" class="mobile-menu__logo">
+            <a href="{% url 'index' %}" class="mobile-menu__logo">
                 <img src="{% static 'assets/images/logo/logo.png' %}" alt="Logo">
             </a>
             <div class="mobile-menu__menu">
 
-                        <a href="index.html" class="nav-menu__link">Home</a>
-                        <a href="all-product.html" class="nav-menu__link">Products</a>
-                        <a href="javascript:void(0)" class="nav-menu__link">Pages</a>
-                        <a href="profile.html" class="nav-submenu__link"> Profile</a>
-                        <a href="cart.html" class="nav-submenu__link"> Shopping Cart</a>
-                        <a href="cart-personal.html" class="nav-submenu__link"> Mailing Address</a>
-                        <a href="cart-payment.html" class="nav-submenu__link"> Payment Method</a>
-                        <a href="cart-thank-you.html" class="nav-submenu__link"> Preview Order</a>
-                        <a href="dashboard.html" class="nav-submenu__link"> Dashboard</a>
+                        <a href="{% url 'index' %}" class="nav-menu__link">Bosh sahifa</a>
+                        <a href="all-product.html" class="nav-menu__link">Mahsulotlar</a>
+                        <a href="javascript:void(0)" class="nav-menu__link">Sahifalar</a>
+                        <a href="{% url 'profile' %}" class="nav-submenu__link"> Profil</a>
+                        <a href="{% url 'cart' %}" class="nav-submenu__link"> Savat</a>
+                        <a href="cart-personal.html" class="nav-submenu__link"> Pochta manzili</a>
+                        <a href="cart-payment.html" class="nav-submenu__link"> To'lov usuli</a>
+                        <a href="cart-thank-you.html" class="nav-submenu__link"> Buyurtmani ko'rish</a>
+                        <a href="dashboard.html" class="nav-submenu__link"> Boshqaruv paneli</a>
                     <li class="nav-menu__item has-submenu">
                         <a href="javascript:void(0)" class="nav-menu__link">Blog</a>
                         <ul class="nav-submenu">
@@ -78,15 +78,15 @@
                                 <a href="blog.html" class="nav-submenu__link"> Blog</a>
                             </li>
                             <li class="nav-submenu__item">
-                                <a href="blog-details.html" class="nav-submenu__link"> Blog Details</a>
+                                <a href="blog-details.html" class="nav-submenu__link"> Blog tafsilotlari</a>
                             </li>
                             <li class="nav-submenu__item">
-                                <a href="blog-details-sidebar.html" class="nav-submenu__link"> Blog Details Sidebar</a>
+                                <a href="blog-details-sidebar.html" class="nav-submenu__link"> Yon panel bilan blog tafsilotlari</a>
                             </li>
                         </ul>
                     </li>
                     <li class="nav-menu__item">
-                        <a href="contact.html" class="nav-menu__link">Contact</a>
+                        <a href="contact.html" class="nav-menu__link">Aloqa</a>
                     </li>
                 </ul>
                 <div class="header-right__inner d-lg-none my-3 gap-1 d-flex flx-align">
@@ -96,13 +96,13 @@
                     <a href="#" class="btn btn-main pill">
                         <span class="icon-left icon">
                             <img src="{% static 'assets/images/icons/user.svg' %}" alt="">
-                        </span>Profile
+                        </span>Profil
                     </a>
                     {% else %}
                     <a href="{% url 'login' %}" class="btn btn-main pill">
                         <span class="icon-left icon">
                             <img src="{% static 'assets/images/icons/user.svg' %}" alt="">
-                        </span>Login
+                        </span>Kirish
                     </a>
                     {% endif %}
 
@@ -140,39 +140,39 @@
 
                         <ul class="nav-menu flx-align ">
                             <li class="nav-menu__item has-submenu">
-                                <a href="#" class="nav-menu__link">Home</a>
+                                <a href="#" class="nav-menu__link">Bosh sahifa</a>
                             </li>
                             <li class="nav-menu__item has-submenu">
-                                <a href="javascript:void(0)" class="nav-menu__link">Products</a>
+                                <a href="javascript:void(0)" class="nav-menu__link">Mahsulotlar</a>
                                 <ul class="nav-submenu">
                                     <li class="nav-submenu__item">
-                                        <a href="all-product.html" class="nav-submenu__link"> All Products</a>
+                                        <a href="{% url 'index' %}" class="nav-submenu__link"> Barcha mahsulotlar</a>
                                     </li>
                                     <li class="nav-submenu__item">
-                                        <a href="product-details.html" class="nav-submenu__link"> Product Details</a>
+                                        <a href="#" class="nav-submenu__link"> Mahsulot tafsilotlari</a>
                                     </li>
                                 </ul>
                             </li>
                             <li class="nav-menu__item has-submenu">
-                                <a href="javascript:void(0)" class="nav-menu__link">Pages</a>
+                                <a href="javascript:void(0)" class="nav-menu__link">Sahifalar</a>
                                 <ul class="nav-submenu">
                                     <li class="nav-submenu__item">
-                                        <a href="profile.html" class="nav-submenu__link"> Profile</a>
+                                        <a href="{% url 'profile' %}" class="nav-submenu__link"> Profil</a>
                                     </li>
                                     <li class="nav-submenu__item">
-                                        <a href="cart.html" class="nav-submenu__link"> Shopping Cart</a>
+                                        <a href="{% url 'cart' %}" class="nav-submenu__link"> Savat</a>
                                     </li>
                                     <li class="nav-submenu__item">
-                                        <a href="cart-personal.html" class="nav-submenu__link"> Mailing Address</a>
+                                        <a href="cart-personal.html" class="nav-submenu__link"> Pochta manzili</a>
                                     </li>
                                     <li class="nav-submenu__item">
-                                        <a href="cart-payment.html" class="nav-submenu__link"> Payment Method</a>
+                                        <a href="cart-payment.html" class="nav-submenu__link"> To'lov usuli</a>
                                     </li>
                                     <li class="nav-submenu__item">
-                                        <a href="cart-thank-you.html" class="nav-submenu__link"> Preview Order</a>
+                                        <a href="cart-thank-you.html" class="nav-submenu__link"> Buyurtmani ko'rish</a>
                                     </li>
                                     <li class="nav-submenu__item">
-                                        <a href="dashboard.html" class="nav-submenu__link"> Dashboard</a>
+                                        <a href="dashboard.html" class="nav-submenu__link"> Boshqaruv paneli</a>
                                     </li>
                                 </ul>
                             </li>
@@ -209,13 +209,13 @@
                             <a href="{% url 'profile' %}" class="btn btn-main pill">
                                 <span class="icon-left icon">
                                     <img src="{% static 'assets/images/icons/user.svg' %}" alt="">
-                                </span>Profile
+                                </span>Profil
                             </a>
                             {% else %}
                             <a href="{% url 'login' %}" class="btn btn-main pill">
                                 <span class="icon-left icon">
                                     <img src="{% static 'assets/images/icons/user.svg' %}" alt="">
-                                </span>Login
+                                </span>Kirish
                             </a>
                             {% endif %}
 
@@ -249,7 +249,7 @@
                     <div class="col-xl-3 col-sm-6">
                         <div class="footer-item">
                             <div class="footer-item__logo">
-                                <a href="index.html"> <img src="{% static 'assets/images/logo/white-logo.png' %}" alt=""></a>
+                                <a href="{% url 'index' %}"> <img src="{% static 'assets/images/logo/white-logo.png' %}" alt=""></a>
                             </div>
                             <p class="footer-item__desc">Lorem consultancy elitsed do eiusmod tempor inci didunt ut
                                 labore dolore magna aliqua sed do eiusmod.</p>
@@ -281,47 +281,46 @@
                     </div>
                     <div class="col-xl-2 col-sm-6 col-xs-6">
                         <div class="footer-item">
-                            <h5 class="footer-item__title">Useful Link</h5>
+                            <h5 class="footer-item__title">Foydali havolalar</h5>
                             <ul class="footer-menu">
-                                <li class="footer-menu__item"><a href="all-product.html"
-                                        class="footer-menu__link">Product </a></li>
-                                <li class="footer-menu__item"><a href="product-details.html"
-                                        class="footer-menu__link">Product Details</a></li>
-                                <li class="footer-menu__item"><a href="profile.html" class="footer-menu__link">Profile
+                                <li class="footer-menu__item"><a href="{% url 'index' %}"
+                                        class="footer-menu__link">Mahsulotlar </a></li>
+                                <li class="footer-menu__item"><a href="#"
+                                        class="footer-menu__link">Mahsulot tafsilotlari</a></li>
+                                <li class="footer-menu__item"><a href="{% url 'profile' %}" class="footer-menu__link">Profil
                                     </a></li>
-                                <li class="footer-menu__item"><a href="cart.html" class="footer-menu__link">Shopping
-                                        Cart</a></li>
+                                <li class="footer-menu__item"><a href="{% url 'cart' %}" class="footer-menu__link">Savat</a></li>
                                 <li class="footer-menu__item"><a href="dashboard.html"
-                                        class="footer-menu__link">Dashboard</a></li>
+                                        class="footer-menu__link">Boshqaruv paneli</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-xl-1 d-xl-block d-none"></div>
                     <div class="col-xl-2 col-sm-6 col-xs-6">
                         <div class="footer-item">
-                            <h5 class="footer-item__title">Quick Links</h5>
+                            <h5 class="footer-item__title">Tezkor havolalar</h5>
                             <ul class="footer-menu">
                                 <li class="footer-menu__item"><a href="dashboard.html"
-                                        class="footer-menu__link">Dashboard </a></li>
-                                <li class="footer-menu__item"><a href="login.html" class="footer-menu__link">Login </a>
+                                        class="footer-menu__link">Boshqaruv paneli </a></li>
+                                <li class="footer-menu__item"><a href="{% url 'login' %}" class="footer-menu__link">Kirish </a>
                                 </li>
-                                <li class="footer-menu__item"><a href="register.html"
-                                        class="footer-menu__link">Register</a></li>
+                                <li class="footer-menu__item"><a href="{% url 'register' %}"
+                                        class="footer-menu__link">Ro'yxatdan o'tish</a></li>
                                 <li class="footer-menu__item"><a href="blog.html" class="footer-menu__link">Blog </a>
                                 </li>
                                 <li class="footer-menu__item"><a href="blog-details.html" class="footer-menu__link">Blog
-                                        Details</a></li>
+                                        tafsilotlari</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="col-xl-4 col-sm-6">
                         <div class="footer-item">
-                            <h5 class="footer-item__title">Subscribe</h5>
-                            <p class="footer-item__desc">Subscribe our newsletter to get updated the latest news</p>
+                            <h5 class="footer-item__title">Obuna bo'lish</h5>
+                            <p class="footer-item__desc">Eng so'nggi yangiliklardan xabardor bo'lish uchun axborotnomamizga obuna bo'ling</p>
                             <form action="#" class="mt-4 subscribe-box d-flex align-items-center flex-column gap-2">
                                 <input type="text" class="form-control common-input pill text-white"
-                                    placeholder="Enter Mail">
-                                <button type="submit" class="btn btn-main btn-lg w-100 pill">Subscribe Now</button>
+                                    placeholder="Emailni kiriting">
+                                <button type="submit" class="btn btn-main btn-lg w-100 pill">Hozir obuna bo'ling</button>
                             </form>
                         </div>
                     </div>
@@ -335,9 +334,9 @@
                 <div class="bottom-footer__inner flx-between gap-3">
                     <p class="bottom-footer__text font-14"> Copyright &copy; 2024 DPmarket, All rights reserved.</p>
                     <div class="footer-links">
-                        <a href="#" class="footer-link font-14">Terms of service</a>
-                        <a href="#" class="footer-link font-14">Privacy Policy</a>
-                        <a href="contact.html" class="footer-link font-14">cookies</a>
+                        <a href="#" class="footer-link font-14">Foydalanish shartlari</a>
+                        <a href="#" class="footer-link font-14">Maxfiylik siyosati</a>
+                        <a href="contact.html" class="footer-link font-14">kukilar</a>
                     </div>
                 </div>
             </div>

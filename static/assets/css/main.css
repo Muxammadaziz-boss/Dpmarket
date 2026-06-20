@@ -6839,7 +6839,6 @@ input[type=number] {
 
 .filter-sidebar__button::after {
     position: absolute;
-    content: "\f107";
     font-weight: 900;
     font-family: "Line Awesome Free";
     right: 0;

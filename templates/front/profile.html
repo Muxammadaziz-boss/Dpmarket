@@ -17,7 +17,7 @@
                         <div class="author-profile d-flex gap-2 flex-column">
                             <div class="author-profile__thumb flex-shrink-0">
                                 {% if user.photo %}
-                                <img src="{{user.photo.url}}" alt="">
+                                <img src="{{user.photo.url}}" alt="" style="border-radius: 50%;">
                                 {% else %}
                                 <img src="{% static 'assets/images/thumbs/author-profile.png' %}" alt="">
                                 {% endif %}
@@ -37,12 +37,12 @@
 
                 </div>
             </div>
-<ul class="nav nav-bordered nav-pills mt-4" id="pills-tab" role="tablist">
+<ul class="nav nav-bordered nav-pills mt-4 gap-3" id="pills-tab" role="tablist">
     <li class="nav-item" role="presentation">
-        <button class="nav-link" id="pills-Settingss-tab" data-bs-toggle="pill" data-bs-target="#pills-Settingss" type="button" role="tab">Sozlamalar</button>
+        <button class="nav-link active" id="pills-Settingss-tab" data-bs-toggle="pill" data-bs-target="#pills-Settingss" type="button" role="tab">Sozlamalar</button>
     </li>
     <li class="nav-item" role="presentation">
-        <button class="nav-link active" id="pills-statement-tab" data-bs-toggle="pill" data-bs-target="#pills-statement" type="button" role="tab">Hisobot</button>
+        <button class="nav-link" id="pills-statement-tab" data-bs-toggle="pill" data-bs-target="#pills-statement" type="button" role="tab">Hisobot</button>
     </li>
 </ul>
         </div>
@@ -52,33 +52,23 @@
 <!-- ======================== Breadcrumb Three Section End ===================== -->
 
 <!-- ===================== Profile Section Start ============================== -->
+<section class="profile pt-5 padding-b-120">
+    <div class="container container-two">
 <div class="tab-content" id="pills-tabContent">
-            <div class="tab-pane fade" id="pills-Settingss" role="tabpanel" aria-labelledby="pills-Settingss-tab" tabindex="0">
+            <div class="tab-pane fade show active" id="pills-Settingss" role="tabpanel" aria-labelledby="pills-Settingss-tab" tabindex="0">
 
 <!-- ================== Setting Section Start ====================== -->
             <div class="row gy-4">
-    <div class="col-lg-4 pe-xl-5">
-        <div class="setting-sidebar ">
-            <h6 class="setting-sidebar__title">Sizning ma'lumotlaringiz</h6>
-            <ul class="setting-sidebar-list">
-                <li class="setting-sidebar-list__item"><a href="#personalInfo" class="setting-sidebar-list__link active" >Shaxsiy ma'lumotlar</a></li>
-                <li class="setting-sidebar-list__item"><a href="#profile" class="setting-sidebar-list__link">Profil</a></li>
-                <li class="setting-sidebar-list__item"><a href="#paymentSystem" class="setting-sidebar-list__link">To'lov tizimini sozlash</a></li>
-                <li class="setting-sidebar-list__item"><a href="#emailSetting" class="setting-sidebar-list__link">Email sozlamalari</a></li>
-                <li class="setting-sidebar-list__item"><a href="#socialNetwork" class="setting-sidebar-list__link">Ijtimoiy tarmoqlar</a></li>
-            </ul>
-        </div>
-    </div>
 
 
-    <div class="col-lg-8">
+    <div class="col-lg-8 mx-auto">
         <!-- <form action="#"> -->
-            <div class="setting-content" data-bs-spy="scroll" data-bs-target="#sidebar-scroll-spy">
-                <div class="card common-card border border-gray-five overflow-hidden mb-24"  id="personalInfo">
+            <div class="setting-content d-flex flex-column gap-4" data-bs-spy="scroll" data-bs-target="#sidebar-scroll-spy">
+                <div class="card common-card border border-gray-five overflow-hidden"  id="personalInfo">
                     <div class="card-header">
                         <h6 class="title">Shaxsiy ma'lumotlar</h6>
                     </div>
-<form method="post" enctype="multipart/form-data">{% csrf_token %}
+            <form method="post" enctype="multipart/form-data">{% csrf_token %}
                         <div class="card-body">
                         <div class="row gy-3">
                             <div class="col-sm-6 col-xs-6">
@@ -115,16 +105,12 @@
 
 </form>
                 </div>
-                <div class="card common-card border border-gray-five overflow-hidden mb-24" id="profile">
+                <div class="card common-card border border-gray-five overflow-hidden" id="profile">
                     <div class="card-header">
                         <h6 class="title">Profil ma'lumotlari</h6>
                     </div>
                     <div class="card-body">
                         <div class="row gy-3">
-                            <div class="col-sm-6 col-xs-6">
-                                <label for="fileUpload" class="form-label">Yangi avatar yuklash</label>
-                                <input type="file" class="common-input common-input--md border--color-dark bg--white" id="fileUpload">
-                            </div>
                             <div class="col-sm-6 col-xs-6">
                                 <label for="fileUploadTwo" class="form-label">Yangi avatar yuklash</label>
                                 <input type="file" class="common-input common-input--md border--color-dark bg--white" id="fileUploadTwo">
@@ -152,40 +138,9 @@
                                 <textarea class="common-input common-input--md border--color-dark bg--white" id="aboutProfile"></textarea>
                             </div>
                         </div>
-                    </div>
-                </div>
-                      <div class="card-header">
-                        <h6 class="title">Ijtimoiy tarmoq sozlamalari</h6>
-                    </div>
-                    <div class="card-body">
-                        <div class="row gy-3">
-                            <div class="col-sm-6 col-xs-6">
-                                <label for="facebookUrl" class="form-label">Facebook profil havolasi</label>
-                                <div class="position-relative">
-                                    <input type="url" class="common-input common-input--md common-input--withLeftIcon" id="facebookUrl" placeholder="Facebook profil havolasi">
-                                    <span class="input-icon input-icon--left text-main"><i class="fab fa-facebook-f"></i> </span>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xs-6">
-                                <label for="linkedinUrl" class="form-label">Linkedin profil havolasi</label>
-                                <div class="position-relative">
-                                    <input type="url" class="common-input common-input--md common-input--withLeftIcon" id="linkedinUrl" placeholder="Linkedin profil havolasi">
-                                    <span class="input-icon input-icon--left text-main"><i class="fab fa-linkedin-in"></i></span>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xs-6">
-                                <label for="behanceUrl" class="form-label">Behance profil havolasi</label>
-                                <div class="position-relative">
-                                    <input type="url" class="common-input common-input--md common-input--withLeftIcon" id="behanceUrl" placeholder="Behance profil havolasi">
-                                    <span class="input-icon input-icon--left text-main"><i class="fab fa-behance"></i> </span>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-xs-6">
-                                <label for="dribbleUrl" class="form-label">Dribble profil havolasi</label>
-                                <div class="position-relative">
-                                    <input type="url" class="common-input common-input--md common-input--withLeftIcon" id="dribbleUrl" placeholder="Dribble profil havolasi">
-                                    <span class="input-icon input-icon--left text-main"><i class="fab fa-dribbble"></i> </span>
-                                </div>
+                        <div class="row gy-4">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn w-100 btn-main btn-md">Ma'lumotlarni saqlash</button>
                             </div>
                         </div>
                     </div>
@@ -278,102 +233,18 @@
                                     <a href="#" class="btn btn-main"><i class="far fa-eye"></i></a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td data-label="Sana">2022-12-31 03:36 AM</td>
-                                <td data-label="Buyurtma ID">#DR54745425478 </td>
-                                <td data-label="Turi"> WordPress</td>
-                                <td data-label="Narxi"> 59.00 USD</td>
-                                <td data-label="Batafsil">
-                                    <a href="#" class="btn btn-main"><i class="far fa-eye"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="Sana">2022-12-31 03:36 AM</td>
-                                <td data-label="Buyurtma ID">#DR54745425478 </td>
-                                <td data-label="Turi"> WordPress</td>
-                                <td data-label="Narxi"> 59.00 USD</td>
-                                <td data-label="Batafsil">
-                                    <a href="#" class="btn btn-main"><i class="far fa-eye"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="Sana">2022-12-31 03:36 AM</td>
-                                <td data-label="Buyurtma ID">#DR54745425478 </td>
-                                <td data-label="Turi"> WordPress</td>
-                                <td data-label="Narxi"> 59.00 USD</td>
-                                <td data-label="Batafsil">
-                                    <a href="#" class="btn btn-main"><i class="far fa-eye"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="Sana">2022-12-31 03:36 AM</td>
-                                <td data-label="Buyurtma ID">#DR54745425478 </td>
-                                <td data-label="Turi"> WordPress</td>
-                                <td data-label="Narxi"> 59.00 USD</td>
-                                <td data-label="Batafsil">
-                                    <a href="#" class="btn btn-main"><i class="far fa-eye"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="Sana">2022-12-31 03:36 AM</td>
-                                <td data-label="Buyurtma ID">#DR54745425478 </td>
-                                <td data-label="Turi"> WordPress</td>
-                                <td data-label="Narxi"> 59.00 USD</td>
-                                <td data-label="Batafsil">
-                                    <a href="#" class="btn btn-main"><i class="far fa-eye"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="Sana">2022-12-31 03:36 AM</td>
-                                <td data-label="Buyurtma ID">#DR54745425478 </td>
-                                <td data-label="Turi"> WordPress</td>
-                                <td data-label="Narxi"> 59.00 USD</td>
-                                <td data-label="Batafsil">
-                                    <a href="#" class="btn btn-main"><i class="far fa-eye"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="Sana">2022-12-31 03:36 AM</td>
-                                <td data-label="Buyurtma ID">#DR54745425478 </td>
-                                <td data-label="Turi"> WordPress</td>
-                                <td data-label="Narxi"> 59.00 USD</td>
-                                <td data-label="Batafsil">
-                                    <a href="#" class="btn btn-main"><i class="far fa-eye"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td data-label="Sana">2022-12-31 03:36 AM</td>
-                                <td data-label="Buyurtma ID">#DR54745425478 </td>
-                                <td data-label="Turi"> WordPress</td>
-                                <td data-label="Narxi"> 59.00 USD</td>
-                                <td data-label="Batafsil">
-                                    <a href="#" class="btn btn-main"><i class="far fa-eye"></i></a>
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                     <div class="flx-between gap-2">
                         <div class="paginate-content flx-align flex-nowrap gap-3">
                             <select class="select common-input py-2 px-3 w-auto">
                                 <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                                <option value="7">7</option>
-                                <option value="8">8</option>
-                                <option value="9">9</option>
-                                <option value="10">10</option>
                             </select>
                             <span class="paginate-content__text fs-14">100 tadan 1 - 10 gacha ko'rsatilyapti</span>
                         </div>
                         <nav aria-label="Page navigation example">
                             <ul class="pagination common-pagination mt-0">
                               <li class="page-item"><a class="page-link" href="#">1</a></li>
-                              <li class="page-item active"><a class="page-link" href="#">2</a></li>
-                              <li class="page-item"><a class="page-link" href="#">3</a></li>
-                              <li class="page-item"><a class="page-link" href="#">4</a></li>
                               <li class="page-item">
                                 <a class="page-link flx-align gap-2 flex-nowrap" href="#">Keyingi
                                   <span class="icon line-height-1 font-20"><i class="las la-arrow-right"></i></span>
@@ -393,4 +264,6 @@
 
 
 </div>
+    </div>
+</section>
 {% endblock %}

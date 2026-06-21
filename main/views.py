@@ -97,6 +97,31 @@ def category_filter(request, category_id):
     return render(request, 'front/category_filter.html', context)
 
 
+def all_products(request):
+    categories = models.Category.objects.all()
+    top_categories = models.Category.objects.filter(is_active=True)[:7]
+    products = models.Product.objects.all()
+    free_products = models.Product.objects.filter(discount_status=True)[:8]
+
+    context = {
+        'categories': categories,
+        'top_categories': top_categories,
+        'products': products,
+        'free_products': free_products,
+        'active_category': None,
+        'active_category_name': None,
+        'total_products': models.Product.objects.count(),
+        'wishlist_ids': [],
+        'cart_ids': [],
+    }
+
+    if request.user.is_authenticated:
+        context['wishlist_ids'] = models.WishList.objects.filter(user=request.user).values_list('product_id', flat=True)
+        context['cart_ids'] = models.CartProduct.objects.filter(cart__user=request.user, cart__status=1).values_list('product_id', flat=True)
+
+    return render(request, 'front/category_filter.html', context)
+
+
 # --------------------AUTH------------------------------
 def register(request):
     if request.method =="POST":

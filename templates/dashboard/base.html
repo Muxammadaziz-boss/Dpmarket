@@ -25,6 +25,10 @@
   <link rel="stylesheet" href="{% static 'assets2/assets/bundles/izitoast/css/iziToast.min.css' %}">
   <link rel="stylesheet" href="{% static 'assets2/assets/bundles/pretty-checkbox/pretty-checkbox.min.css' %}">
   <link rel="stylesheet" href="{% static 'assets2/assets/bundles/prism/prism.css' %}">
+  <link rel='shortcut icon' type='image/x-icon' href="{% static 'assets2/assets/img/favicon.ico' %}" />
+  <link rel="stylesheet" href="{% static 'assets2/assets/bundles/summernote/summernote-bs4.css' %}">
+  <link rel="stylesheet" href="{% static 'assets2/assets/bundles/jquery-selectric/selectric.css' %}">
+  <link rel="stylesheet" href="{% static 'assets2/assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.css' %}">
 </head>
 
 <body>
@@ -41,9 +45,9 @@
                 <i data-feather="maximize"></i>
               </a></li>
             <li>
-              <form class="form-inline mr-auto">
+              <form class="form-inline mr-auto" action="{% url 'd_orders' %}" method="get">
                 <div class="search-element">
-                  <input class="form-control" type="search" placeholder="Qidirish" aria-label="Qidirish" data-width="200">
+                  <input class="form-control" type="search" name="query" placeholder="Qidirish" aria-label="Qidirish" data-width="200">
                   <button class="btn" type="submit">
                     <i class="fas fa-search"></i>
                   </button>
@@ -187,31 +191,44 @@
           <ul class="sidebar-menu">
             <li class="menu-header">Asosiy</li>
             <li class="dropdown active">
-              <a href="{% url 'dashboard_index' %}" class="nav-link"><i data-feather="monitor"></i><span>Boshqaruv paneli</span></a>
+              <a href="{% url 'd_index' %}" class="nav-link"><i data-feather="monitor"></i><span>Boshqaruv paneli</span></a>
             </li>
             <li class="dropdown">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i
                   data-feather="briefcase"></i><span>Kategoriyalar</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="{% url 'create_category' %}">Kategoriya yaratish</a></li>
-                <li><a class="nav-link" href="#">Kategoriyalar</a></li>
+                <li><a class="nav-link" href="{% url 'd_create_category' %}">Kategoriya yaratish</a></li>
+                <li><a class="nav-link" href="{% url 'd_list_category' %}">Barcha Kategoriyalar</a></li>
               </ul>
             </li>
             <li class="dropdown">
               <a href="#" class="menu-toggle nav-link has-dropdown"><i
-                  data-feather="briefcase"></i><span>Vidjetlar</span></a>
+                  data-feather="briefcase"></i><span>Maxsulotlar</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="widget-chart.html">Grafik vidjetlari</a></li>
-                <li><a class="nav-link" href="widget-data.html">Ma'lumotlar vidjetlari</a></li>
+                <li><a class="nav-link" href="{% url 'd_create_product' %}">Maxsulot yaratish</a></li>
+                <li><a class="nav-link" href="{% url 'd_list_category' %}">Barcha Maxsulotlar</a></li>
               </ul>
             </li>
             <li class="dropdown">
-              <a href="#" class="menu-toggle nav-link has-dropdown"><i data-feather="command"></i><span>Ilovalar</span></a>
+              <a href="#" class="menu-toggle nav-link has-dropdown"><i
+                  data-feather="briefcase"></i><span>Buyurtmalar</span></a>
               <ul class="dropdown-menu">
-                <li><a class="nav-link" href="chat.html">Suhbat</a></li>
-                <li><a class="nav-link" href="portfolio.html">Portfolio</a></li>
-                <li><a class="nav-link" href="blog.html">Blog</a></li>
-                <li><a class="nav-link" href="calendar.html">Taqvim</a></li>
+                <li><a class="nav-link" href="{% url 'd_orders' %}">Barcha Buyurtmalar</a></li>
+              </ul>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{% url 'd_orders' %}">No faol</a></li>
+              </ul>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{% url 'd_orders' %}">Yig'ilmoqda</a></li>
+              </ul>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{% url 'd_orders' %}">Yo'lda</a></li>
+              </ul>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{% url 'd_orders' %}">Yetkazilgan</a></li>
+              </ul>
+              <ul class="dropdown-menu">
+                <li><a class="nav-link" href="{% url 'd_orders' %}">Bekor qilingan</a></li>
               </ul>
             </li>
           </ul>

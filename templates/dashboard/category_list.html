@@ -40,8 +40,8 @@
                         <tr>
                           <td class="p-0 text-center">
                             <div class="custom-checkbox custom-control">
-                              <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-1">
-                              <label for="checkbox-1" class="custom-control-label">&nbsp;</label>
+                              <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-{{category.id}}">
+                              <label for="checkbox-{{category.id}}" class="custom-control-label">&nbsp;</label>
                             </div>
                           </td>
                           <td>{{category.name}}</td>
@@ -51,7 +51,11 @@
                           </td>
 
                           <td>
-                            <div class="badge badge-success">{{category.is_active}}</div>
+                            {% if category.is_active %}
+                              <div class="badge badge-success">Active</div>
+                            {% else %}
+                              <div class="badge badge-danger">Inactive</div>
+                            {% endif %}
                           </td>
                           <td>
                             <a href="{% url 'd_edit_category' category.id %}" class="btn btn-primary"> <i class="far fa-edit"></i></a>

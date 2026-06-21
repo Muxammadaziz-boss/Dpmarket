@@ -9,52 +9,83 @@
               <div class="col-12">
                 <div class="card">
                   <div class="card-header">
-                    <h4>Categorya tahrirlash</h4>
+                    <h4>Mahsulot yaratish</h4>
                   </div>
-
-                  <form method="post" enctype="multipart/form-data">{% csrf_token %}
-                     <div class="card-body">
+                    <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                        <div class="card-body">
                     <div class="form-group row mb-4">
-                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category Name</label>
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nomi</label>
                       <div class="col-sm-12 col-md-7">
-                        <input type="text" value="{{category.name}}" name="name" class="form-control">
+                        <input type="text" name="name" class="form-control" required>
                       </div>
                     </div>
-                                           <div class="form-group row mb-4">
-                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>
+                    <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Kategoriya</label>
                       <div class="col-sm-12 col-md-7">
-                        <div class="pretty p-switch p-fill">
-                          {% if category.is_active %}
-                            <input type="checkbox" checked name="is_active">
+                        <select name="category" class="form-control" required style="display: block !important;">
+                          <option value="">Tanlang</option>
+                          {% if categories %}
+                            {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category.name }}</option>
+                            {% endfor %}
                           {% else %}
-                            <input type="checkbox" name="is_active">
+                            <option value="">Kategoriyalar yo'q (debug)</option>
                           {% endif %}
-                      <div class="state p-success">
-                        <label>Active</label>
+                        </select>
                       </div>
                     </div>
-                      </div>
-                    </div>
-
                     <div class="form-group row mb-4">
-                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Category Logo</label>
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Tavsif</label>
+                      <div class="col-sm-12 col-md-7">
+                        <textarea name="description" class="summernote-simple" required></textarea>
+                      </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Narxi</label>
+                      <div class="col-sm-12 col-md-7">
+                        <input type="number" name="price" step="0.01" class="form-control" required>
+                      </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Chegirma narxi</label>
+                      <div class="col-sm-12 col-md-7">
+                        <input type="number" name="discount_price" step="0.01" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Rasm</label>
                       <div class="col-sm-12 col-md-7">
                         <div id="image-preview" class="image-preview">
-                          <label for="image-upload" id="image-label">Choose File</label>
-                          <input type="file" value="" name="logo" id="image-upload" />
-                          <img src="{{category.logo.url}}" alt="" class="image-preview" />
+                          <label for="image-upload" id="image-label">Faylni tanlang</label>
+                          <input type="file" name="image" id="image-upload" required />
                         </div>
                       </div>
                     </div>
-
+                    <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Chegirma holati</label>
+                      <div class="col-sm-12 col-md-7">
+                        <div class="pretty p-switch p-fill">
+                          <input type="checkbox" name="discount_status">
+                          <div class="state p-success">
+                            <label>Chegirmada</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group row mb-4">
+                      <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Soni</label>
+                      <div class="col-sm-12 col-md-7">
+                        <input type="number" name="count" class="form-control" value="0">
+                      </div>
+                    </div>
                     <div class="form-group row mb-4">
                       <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
                       <div class="col-sm-12 col-md-7">
-                        <button type="submit" class="btn btn-primary">Saqlash</button>
+                        <button type="submit" class="btn btn-primary">Mahsulot yaratish</button>
                       </div>
                     </div>
                   </div>
-                  </form>
+                    </form>
                 </div>
               </div>
             </div>
@@ -65,38 +96,38 @@
           </a>
           <div class="settingSidebar-body ps-container ps-theme-default">
             <div class=" fade show active">
-              <div class="setting-panel-header">Setting Panel
+              <div class="setting-panel-header">Sozlamalar paneli
               </div>
               <div class="p-15 border-bottom">
-                <h6 class="font-medium m-b-10">Select Layout</h6>
+                <h6 class="font-medium m-b-10">Loyihani tanlang</h6>
                 <div class="selectgroup layout-color w-50">
                   <label class="selectgroup-item">
                     <input type="radio" name="value" value="1" class="selectgroup-input-radio select-layout" checked>
-                    <span class="selectgroup-button">Light</span>
+                    <span class="selectgroup-button">Yorug'</span>
                   </label>
                   <label class="selectgroup-item">
                     <input type="radio" name="value" value="2" class="selectgroup-input-radio select-layout">
-                    <span class="selectgroup-button">Dark</span>
+                    <span class="selectgroup-button">Qorong'i</span>
                   </label>
                 </div>
               </div>
               <div class="p-15 border-bottom">
-                <h6 class="font-medium m-b-10">Sidebar Color</h6>
+                <h6 class="font-medium m-b-10">Yon panel rangi</h6>
                 <div class="selectgroup selectgroup-pills sidebar-color">
                   <label class="selectgroup-item">
                     <input type="radio" name="icon-input" value="1" class="selectgroup-input select-sidebar">
                     <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
-                      data-original-title="Light Sidebar"><i class="fas fa-sun"></i></span>
+                      data-original-title="Yorug' yon panel"><i class="fas fa-sun"></i></span>
                   </label>
                   <label class="selectgroup-item">
                     <input type="radio" name="icon-input" value="2" class="selectgroup-input select-sidebar" checked>
                     <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
-                      data-original-title="Dark Sidebar"><i class="fas fa-moon"></i></span>
+                      data-original-title="Qorong'i yon panel"><i class="fas fa-moon"></i></span>
                   </label>
                 </div>
               </div>
               <div class="p-15 border-bottom">
-                <h6 class="font-medium m-b-10">Color Theme</h6>
+                <h6 class="font-medium m-b-10">Rang mavzusi</h6>
                 <div class="theme-setting-options">
                   <ul class="choose-theme list-unstyled mb-0">
                     <li title="white" class="active">
@@ -129,7 +160,7 @@
                     <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
                       id="mini_sidebar_setting">
                     <span class="custom-switch-indicator"></span>
-                    <span class="control-label p-l-10">Mini Sidebar</span>
+                    <span class="control-label p-l-10">Kichik yon panel</span>
                   </label>
                 </div>
               </div>
@@ -139,17 +170,17 @@
                     <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
                       id="sticky_header_setting">
                     <span class="custom-switch-indicator"></span>
-                    <span class="control-label p-l-10">Sticky Header</span>
+                    <span class="control-label p-l-10">Yopishqoq sarlavha</span>
                   </label>
                 </div>
               </div>
               <div class="mt-4 mb-4 p-3 align-center rt-sidebar-last-ele">
                 <a href="#" class="btn btn-icon icon-left btn-primary btn-restore-theme">
-                  <i class="fas fa-undo"></i> Restore Default
+                  <i class="fas fa-undo"></i> Asl holatga qaytarish
                 </a>
               </div>
             </div>
           </div>
         </div>
       </div>
-  {% endblock %}
+{% endblock content %}

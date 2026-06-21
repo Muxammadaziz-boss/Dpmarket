@@ -21,12 +21,12 @@
                             plaginlarni o'rganing. Bizning noyob kolleksiyamiz mutaxassislar tomonidan qo'lda
                             yaratilgan. Bugun mukammal premium mavzuni toping va sotib oling.</p>
 
-                        <div class="search-box">
-                            <input type="text" class="common-input common-input--lg pill shadow-sm"
-                                placeholder="Maxsulotlarni qidirish">
+                        <form action="{% url 'all_products' %}" method="GET" class="search-box">
+                            <input type="text" name="query" class="common-input common-input--lg pill shadow-sm"
+                                placeholder="Maxsulotlarni qidirish" value="{{ query|default:'' }}">
                             <button type="submit" class="btn btn-main btn-icon icon border-0"><img
                                     src="{% static 'assets/images/icons/search.svg' %}" alt=""></button>
-                        </div>
+                        </form>
 
 
                     </div>

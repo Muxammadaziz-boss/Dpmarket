@@ -45,7 +45,7 @@
                 <i data-feather="maximize"></i>
               </a></li>
             <li>
-              <form class="form-inline mr-auto" action="{% url 'd_orders' %}" method="get">
+              <form id="global-search-form" class="form-inline mr-auto" action="{% url 'd_list_product' %}" method="get">
                 <div class="search-element">
                   <input class="form-control" type="search" name="query" placeholder="Qidirish" aria-label="Qidirish" data-width="200">
                   <button class="btn" type="submit">
@@ -206,7 +206,7 @@
                   data-feather="briefcase"></i><span>Maxsulotlar</span></a>
               <ul class="dropdown-menu">
                 <li><a class="nav-link" href="{% url 'd_create_product' %}">Maxsulot yaratish</a></li>
-                <li><a class="nav-link" href="{% url 'd_list_category' %}">Barcha Maxsulotlar</a></li>
+                <li><a class="nav-link" href="{% url 'd_list_product' %}">Barcha Maxsulotlar</a></li>
               </ul>
             </li>
             <li class="dropdown">
@@ -266,15 +266,42 @@
   <script src="{% static 'assets2/assets/bundles/upload-preview/assets/js/jquery.uploadPreview.min.js' %}"></script>
   <script src="{% static 'assets2/assets/bundles/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js' %}"></script>
   <!-- Page Specific JS File -->
-  <script src="{% static 'assets2/assets/js/page/create-post.js' %}"></script>
+  <script src="{% static 'assets2/assets/js/page/create-post.js' %}?v=2.0"></script>
   <!-- Template JS File -->
-  <script src="{% static 'assets2/assets/js/scripts.js' %}"></script>
+  <script src="{% static 'assets2/assets/js/scripts.js' %}?v=2.0"></script>
   <!-- Custom JS File -->
   <script src="{% static 'assets2/assets/js/custom.js' %}"></script>
   <script src="{% static 'assets2/assets/bundles/prism/prism.js' %}"></script>
   <script src="{% static 'assets2/assets/bundles/izitoast/js/iziToast.min.js' %}"></script>
   <!-- Page Specific JS File -->
   <script src="{% static 'assets2/assets/js/page/toastr.js' %}"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var searchForm = document.getElementById("global-search-form");
+        if (searchForm) {
+            var path = window.location.pathname;
+            var searchInput = searchForm.querySelector("input[name='query']");
+            
+            // Prefill search input from URL param if available
+            var urlParams = new URLSearchParams(window.location.search);
+            var queryVal = urlParams.get('query');
+            if (queryVal && searchInput) {
+                searchInput.value = queryVal;
+            }
+            
+            // Set dynamic action based on path
+            if (path.indexOf("/dashboard/list-category/") !== -1) {
+                searchForm.action = "{% url 'd_list_category' %}";
+            } else if (path.indexOf("/dashboard/list-product/") !== -1) {
+                searchForm.action = "{% url 'd_list_product' %}";
+            } else if (path.indexOf("/dashboard/list-orders/") !== -1) {
+                searchForm.action = "{% url 'd_orders' %}";
+            } else {
+                searchForm.action = "{% url 'd_list_product' %}";
+            }
+        }
+    });
+  </script>
 </body>
 
 

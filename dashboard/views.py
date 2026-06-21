@@ -64,8 +64,11 @@ def create_category(request):
 
 @user_passes_test(lambda u: u.is_superuser, login_url='d_login')
 def list_category(request):
-    categories = models.Category.objects.all()
-    return render(request, 'dashboard/category_list.html', {'categories': categories})
+    query = request.GET.get('query')
+    categories = models.Category.objects.all().order_by('-id')
+    if query:
+        categories = categories.filter(name__icontains=query)
+    return render(request, 'dashboard/category_list.html', {'categories': categories, 'query': query})
 
 
 @user_passes_test(lambda u: u.is_superuser, login_url='d_login')
@@ -134,6 +137,49 @@ def create_product(request):
             return render(request, 'dashboard/create_praduct.html', {'categories': categories})
 
     return render(request, 'dashboard/create_praduct.html', {'categories': categories})
+
+
+@user_passes_test(lambda u: u.is_superuser, login_url='d_login')
+def list_product(request):
+    query = request.GET.get('query')
+    products = models.Product.objects.all().order_by('-created_at')
+    if query:
+        products = products.filter(name__icontains=query)
+    return render(request, 'dashboard/praduct_list.html', {'products': products, 'query': query})
+
+
+@user_passes_test(lambda u: u.is_superuser, login_url='d_login')
+def edit_product(request, code):
+    product = models.Product.objects.get(code=code)
+    categories = models.Category.objects.all()
+    if request.method == 'POST':
+        try:
+            product.name = request.POST.get('name')
+            category_id = request.POST.get('category')
+            product.category = models.Category.objects.get(id=category_id)
+            product.description = request.POST.get('description')
+            product.price = request.POST.get('price')
+            discount_price = request.POST.get('discount_price')
+            product.discount_price = discount_price if discount_price else None
+            product.discount_status = bool(request.POST.get('discount_status'))
+            product.count = int(request.POST.get('count', 0))
+            image = request.FILES.get('image')
+            if image:
+                product.image = image
+            product.save()
+            messages.success(request, 'Mahsulot yangilandi')
+            return redirect('d_list_product')
+        except Exception as e:
+            messages.error(request, f'Xatolik: {str(e)}')
+    context = {'product': product, 'categories': categories}
+    return render(request, 'dashboard/edit_praduct.html', context=context)
+
+
+@user_passes_test(lambda u: u.is_superuser, login_url='d_login')
+def delete_product(request, code):
+    product = models.Product.objects.get(code=code)
+    product.delete()
+    return redirect('d_list_product')
 
 
 @user_passes_test(lambda u: u.is_superuser, login_url='d_login')

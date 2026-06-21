@@ -54,7 +54,7 @@
             <div class="mobile-menu__menu">
 
                         <a href="{% url 'index' %}" class="nav-menu__link">Bosh sahifa</a>
-                        <a href="all-product.html" class="nav-menu__link">Mahsulotlar</a>
+                        <a href="{% url 'all_products' %}" class="nav-menu__link">Mahsulotlar</a>
                         <a href="javascript:void(0)" class="nav-menu__link">Sahifalar</a>
                         <a href="{% url 'profile' %}" class="nav-submenu__link"> Profil</a>
                         <a href="{% url 'cart' %}" class="nav-submenu__link"> Savat</a>
@@ -110,14 +110,14 @@
                     <div class="header-menu d-lg-block d-none">
 
                         <ul class="nav-menu flx-align ">
-                            <li class="nav-menu__item has-submenu">
+                            <li class="nav-menu__item">
                                 <a href="{% url 'index' %}" class="nav-menu__link">Bosh sahifa</a>
                             </li>
                             <li class="nav-menu__item has-submenu">
                                 <a href="javascript:void(0)" class="nav-menu__link">Mahsulotlar</a>
                                 <ul class="nav-submenu">
                                     <li class="nav-submenu__item">
-                                        <a href="{% url 'index' %}" class="nav-submenu__link"> Barcha mahsulotlar</a>
+                                        <a href="{% url 'all_products' %}" class="nav-submenu__link"> Barcha mahsulotlar</a>
                                     </li>
                                     <li class="nav-submenu__item">
                                         <a href="#" class="nav-submenu__link"> Mahsulot tafsilotlari</a>
@@ -159,7 +159,7 @@
                             <i class="fa fa-heart" style="font-size:24px;color:red"></i>
                             <span class="qty-badge font-12">
                                 {% if user.is_authenticated %}
-                                    {{ user.wishlist_set.count }}
+                                    {{ user.wishlist_count }}
                                 {% else %}
                                     0
                                 {% endif %}

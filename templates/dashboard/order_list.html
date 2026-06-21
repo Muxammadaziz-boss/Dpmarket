@@ -28,7 +28,7 @@
                     <div class="card-header-form">
                       <form method="get">
                         <div class="input-group">
-                          <input type="text" name="query" class="form-control""  placeholder="Qidirish">
+                          <input type="text" name="query" class="form-control" placeholder="Qidirish" value="{{ query|default:'' }}">
                           <div class="input-group-btn">
                             <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                           </div>

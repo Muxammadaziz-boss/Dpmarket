@@ -76,6 +76,11 @@ def category_filter(request, category_id):
     top_categories = models.Category.objects.filter(is_active=True)[:7]
     active_category = get_object_or_404(models.Category, id=category_id)
     products = models.Product.objects.filter(category=active_category)
+    
+    query = request.GET.get('query')
+    if query:
+        products = products.filter(name__icontains=query)
+        
     free_products = models.Product.objects.filter(discount_status=True)[:8]
 
     context = {
@@ -88,6 +93,7 @@ def category_filter(request, category_id):
         'total_products': models.Product.objects.count(),
         'wishlist_ids': [],
         'cart_ids': [],
+        'query': query,
     }
 
     if request.user.is_authenticated:
@@ -101,6 +107,11 @@ def all_products(request):
     categories = models.Category.objects.all()
     top_categories = models.Category.objects.filter(is_active=True)[:7]
     products = models.Product.objects.all()
+    
+    query = request.GET.get('query')
+    if query:
+        products = products.filter(name__icontains=query)
+        
     free_products = models.Product.objects.filter(discount_status=True)[:8]
 
     context = {
@@ -113,6 +124,7 @@ def all_products(request):
         'total_products': models.Product.objects.count(),
         'wishlist_ids': [],
         'cart_ids': [],
+        'query': query,
     }
 
     if request.user.is_authenticated:
@@ -256,19 +268,21 @@ def delete_wishlist(request, product_code):
     return redirect_back(request)
 
 
-
 @login_required(login_url='login')
 def wishlist(request):
-    wishlist_products = models.WishList.objects.filter(user=request.user)
+    wishlist_products = models.WishList.objects.filter(user=request.user).filter(product__isnull=False)
     context = {
-        "wishlist_products":wishlist_products
+        "wishlist_products": wishlist_products
     }
     return render(request, 'front/wishlist.html', context=context)
 
 
 @login_required(login_url='login')
 def cart(request):
-    cart_products = models.CartProduct.objects.filter(cart__user=request.user).select_related('product', 'cart')
+    cart_products = models.CartProduct.objects.filter(
+        cart__user=request.user,
+        cart__status=1
+    ).select_related('product', 'cart').filter(product__isnull=False)
     context = {
         "cart_products": cart_products
     }

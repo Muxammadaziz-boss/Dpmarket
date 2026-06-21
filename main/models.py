@@ -12,7 +12,11 @@ class User(AbstractUser):
 
     @property
     def cart_items_count(self):
-        return CartProduct.objects.filter(cart__user=self).aggregate(total=Sum('count'))['total'] or 0
+        return CartProduct.objects.filter(cart__user=self, cart__status=1).aggregate(total=Sum('count'))['total'] or 0
+
+    @property
+    def wishlist_count(self):
+        return WishList.objects.filter(user=self, product__isnull=False).count()
 
     class Meta(AbstractUser.Meta):
         swappable = "AUTH_USER_MODEL"

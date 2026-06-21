@@ -324,7 +324,7 @@ $(function () {
 
   // Selectric
   if (jQuery().selectric) {
-    $(".selectric").selectric({
+    $("select.selectric").selectric({
       disableOnMobile: false,
       nativeOnMobile: false
     });

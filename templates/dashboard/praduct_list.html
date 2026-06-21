@@ -1,10 +1,213 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'dashboard/base.html' %}
 
-</body>
-</html>
+{% block content %}
+<div class="main-content" style="min-height: 740px;">
+        <section class="section">
+          <div class="section-body">
+
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h4>Mahsulotlar Ro'yxati</h4>
+                    <div class="card-header-form">
+                      <form method="GET">
+                        <div class="input-group">
+                          <input type="text" name="query" class="form-control" placeholder="Qidirish" value="{{ query|default:'' }}">
+                          <div class="input-group-btn">
+                            <button class="btn btn-primary"><i class="fas fa-search"></i></button>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="card-body p-0">
+                    <div class="table-responsive">
+                      <table class="table table-striped">
+                        <tbody><tr>
+                          <th class="text-center">
+                            <div class="custom-checkbox custom-checkbox-table custom-control">
+                              <input type="checkbox" data-checkboxes="mygroup" data-checkbox-role="dad" class="custom-control-input" id="checkbox-all">
+                              <label for="checkbox-all" class="custom-control-label">&nbsp;</label>
+                            </div>
+                          </th>
+                          <th>Rasm</th>
+                          <th>Nomi</th>
+                          <th>Kategoriya</th>
+                          <th>Narxi</th>
+                          <th>Chegirma narxi</th>
+                          <th>Soni</th>
+                          <th>Chegirma</th>
+                          <th>Amal</th>
+                        </tr>
+                        {% for product in products %}
+                        <tr>
+                          <td class="p-0 text-center">
+                            <div class="custom-checkbox custom-control">
+                              <input type="checkbox" data-checkboxes="mygroup" class="custom-control-input" id="checkbox-{{product.id}}">
+                              <label for="checkbox-{{product.id}}" class="custom-control-label">&nbsp;</label>
+                            </div>
+                          </td>
+                          <td>
+                            <img alt="image" src="{{product.image.url}}" class="rounded-circle" width="35" data-toggle="tooltip" title="{{product.name}}">
+                          </td>
+                          <td>{{product.name}}</td>
+                          <td>
+                            <div class="badge badge-info">{{product.category.name}}</div>
+                          </td>
+                          <td>{{product.price}} so'm</td>
+                          <td>
+                            {% if product.discount_price %}
+                              {{product.discount_price}} so'm
+                            {% else %}
+                              —
+                            {% endif %}
+                          </td>
+                          <td>{{product.count}}</td>
+                          <td>
+                            {% if product.discount_status %}
+                              <div class="badge badge-success">Chegirmada</div>
+                            {% else %}
+                              <div class="badge badge-danger">Chegirmasiz</div>
+                            {% endif %}
+                          </td>
+                          <td>
+                            <a href="{% url 'd_edit_product' product.code %}" class="btn btn-primary btn-sm"> <i class="far fa-edit"></i></a>
+                            <a href="#" data-toggle="modal" data-target="#deleteProductModal{{product.id}}" class="btn btn-danger btn-sm"> <i class="fas fa-trash-alt"></i></a>
+                          </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                          <td colspan="9" class="text-center">Mahsulotlar topilmadi</td>
+                        </tr>
+                        {% endfor %}
+                      </tbody></table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+        <div class="settingSidebar">
+          <a href="javascript:void(0)" class="settingPanelToggle"> <i class="fa fa-spin fa-cog"></i>
+          </a>
+          <div class="settingSidebar-body ps-container ps-theme-default">
+            <div class=" fade show active">
+              <div class="setting-panel-header">Sozlamalar paneli
+              </div>
+              <div class="p-15 border-bottom">
+                <h6 class="font-medium m-b-10">Loyihani tanlang</h6>
+                <div class="selectgroup layout-color w-50">
+                  <label class="selectgroup-item">
+                    <input type="radio" name="value" value="1" class="selectgroup-input-radio select-layout" checked>
+                    <span class="selectgroup-button">Yorug'</span>
+                  </label>
+                  <label class="selectgroup-item">
+                    <input type="radio" name="value" value="2" class="selectgroup-input-radio select-layout">
+                    <span class="selectgroup-button">Qorong'i</span>
+                  </label>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <h6 class="font-medium m-b-10">Yon panel rangi</h6>
+                <div class="selectgroup selectgroup-pills sidebar-color">
+                  <label class="selectgroup-item">
+                    <input type="radio" name="icon-input" value="1" class="selectgroup-input select-sidebar">
+                    <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                      data-original-title="Yorug' yon panel"><i class="fas fa-sun"></i></span>
+                  </label>
+                  <label class="selectgroup-item">
+                    <input type="radio" name="icon-input" value="2" class="selectgroup-input select-sidebar" checked>
+                    <span class="selectgroup-button selectgroup-button-icon" data-toggle="tooltip"
+                      data-original-title="Qorong'i yon panel"><i class="fas fa-moon"></i></span>
+                  </label>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <h6 class="font-medium m-b-10">Rang mavzusi</h6>
+                <div class="theme-setting-options">
+                  <ul class="choose-theme list-unstyled mb-0">
+                    <li title="white" class="active">
+                      <div class="white"></div>
+                    </li>
+                    <li title="cyan">
+                      <div class="cyan"></div>
+                    </li>
+                    <li title="black">
+                      <div class="black"></div>
+                    </li>
+                    <li title="purple">
+                      <div class="purple"></div>
+                    </li>
+                    <li title="orange">
+                      <div class="orange"></div>
+                    </li>
+                    <li title="green">
+                      <div class="green"></div>
+                    </li>
+                    <li title="red">
+                      <div class="red"></div>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <div class="theme-setting-options">
+                  <label class="m-b-0">
+                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                      id="mini_sidebar_setting">
+                    <span class="custom-switch-indicator"></span>
+                    <span class="control-label p-l-10">Kichik yon panel</span>
+                  </label>
+                </div>
+              </div>
+              <div class="p-15 border-bottom">
+                <div class="theme-setting-options">
+                  <label class="m-b-0">
+                    <input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input"
+                      id="sticky_header_setting">
+                    <span class="custom-switch-indicator"></span>
+                    <span class="control-label p-l-10">Yopishqoq sarlavha</span>
+                  </label>
+                </div>
+              </div>
+              <div class="mt-4 mb-4 p-3 align-center rt-sidebar-last-ele">
+                <a href="#" class="btn btn-icon icon-left btn-primary btn-restore-theme">
+                  <i class="fas fa-undo"></i> Asl holatga qaytarish
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+{% for product in products %}
+        <div class="modal fade" id="deleteProductModal{{product.id}}" tabindex="-1" role="dialog"
+          aria-labelledby="deleteProductModalTitle" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteProductModalTitle">Mahsulotni o'chirish</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <strong>{{product.name}}</strong> nomli mahsulotni o'chirmoqchimisiz?
+                <div class="banner-img mt-3">
+                  <img style="max-width: 200px;" src="{{product.image.url}}" alt="{{product.name}}">
+                </div>
+              </div>
+              <div class="modal-footer bg-whitesmoke br">
+                <a href="{% url 'd_delete_product' product.code %}" type="button" class="btn btn-primary">Ha</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Yo'q</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+{% endfor %}
+{% endblock %}

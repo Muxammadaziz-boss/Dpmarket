@@ -14,16 +14,18 @@
                 <div class="breadcrumb-one-content">
                     <h3 class="breadcrumb-one-content__title text-center mb-3 text-capitalize">
                         {% if active_category %}
-                            {{ active_category_name }} mahsulotlari
+                        {{ active_category_name }} mahsulotlari
                         {% else %}
-                            58,000+ dan ortiq sotib olish mumkin bo'lgan mahsulotlar
+                        58,000+ dan ortiq sotib olish mumkin bo'lgan mahsulotlar
                         {% endif %}
                     </h3>
                     <p class="breadcrumb-one-content__desc text-center text-black-three">
-                        Sotuvdagi eng yaxshi premium andozalar va plaginlarni o'rganing. Bizning noyob to'plamimiz mutaxassislar tomonidan saralangan. Mukammal premium andozani toping va sotib oling.
+                        Sotuvdagi eng yaxshi premium andozalar va plaginlarni o'rganing. Bizning noyob to'plamimiz
+                        mutaxassislar tomonidan saralangan. Mukammal premium andozani toping va sotib oling.
                     </p>
-                    <form action="#" class="search-box">
-                        <input type="text" class="common-input common-input--lg pill shadow-sm" placeholder="Mavzular, plaginlar va boshqalarni qidirish...">
+                    <form method="GET" class="search-box">
+                        <input type="text" name="query" class="common-input common-input--lg pill shadow-sm"
+                            placeholder="Mavzular, plaginlar va boshqalarni qidirish..." value="{{ query|default:'' }}">
                         <button type="submit" class="btn btn-main btn-icon icon border-0">
                             <img src="{% static 'assets/images/icons/search.svg' %}" alt="">
                         </button>
@@ -43,22 +45,24 @@
 
                 <!-- ===== Filter Tab (Category + Sort) ===== -->
                 <div class="filter-tab gap-3 flx-between">
-                    <button type="button" class="filter-tab__button btn btn-outline-light pill d-flex align-items-center">
-                        <span class="icon icon-left"><img src="{% static 'assets/images/icons/filter.svg' %}" alt=""></span>
+                    <button type="button"
+                        class="filter-tab__button btn btn-outline-light pill d-flex align-items-center">
+                        <span class="icon icon-left"><img src="{% static 'assets/images/icons/filter.svg' %}"
+                                alt=""></span>
                         <span class="font-18 fw-500">Filtrlar</span>
                     </button>
 
                     <ul class="nav common-tab nav-pills mb-0 gap-lg-2 gap-1 ms-lg-auto" id="pills-tab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <a href="{% url 'all_products' %}"
-                               class="nav-link {% if active_category is None or not active_category %}active{% endif %}">
+                                class="nav-link {% if active_category is None or not active_category %}active{% endif %}">
                                 Barcha mahsulotlar
                             </a>
                         </li>
                         {% for cat in top_categories %}
                         <li class="nav-item" role="presentation">
                             <a href="{% url 'index_by_category' cat.id %}"
-                               class="nav-link {% if active_category == cat.id %}active{% endif %}">
+                                class="nav-link {% if active_category == cat.id %}active{% endif %}">
                                 {{ cat.name }}
                             </a>
                         </li>
@@ -66,9 +70,12 @@
                     </ul>
 
                     <div class="list-grid d-flex align-items-center gap-2">
-                        <button class="list-grid__button list-button d-sm-flex d-none text-body"><i class="las la-list"></i></button>
-                        <button class="list-grid__button grid-button d-sm-flex d-none active text-body"><i class="las la-border-all"></i></button>
-                        <button class="list-grid__button sidebar-btn text-body d-lg-none d-flex"><i class="las la-bars"></i></button>
+                        <button class="list-grid__button list-button d-sm-flex d-none text-body"><i
+                                class="las la-list"></i></button>
+                        <button class="list-grid__button grid-button d-sm-flex d-none active text-body"><i
+                                class="las la-border-all"></i></button>
+                        <button class="list-grid__button sidebar-btn text-body d-lg-none d-flex"><i
+                                class="las la-bars"></i></button>
                     </div>
                 </div>
 
@@ -81,8 +88,10 @@
                                 <button type="reset" class="text-body font-14">Tozalash</button>
                             </div>
                             <div class="position-relative">
-                                <input type="text" class="common-input border-gray-five common-input--withLeftIcon" id="tag" placeholder="Teg bo'yicha qidirish...">
-                                <span class="input-icon input-icon--left"><img src="{% static 'assets/images/icons/search-two.svg' %}" alt=""></span>
+                                <input type="text" class="common-input border-gray-five common-input--withLeftIcon"
+                                    id="tag" placeholder="Teg bo'yicha qidirish...">
+                                <span class="input-icon input-icon--left"><img
+                                        src="{% static 'assets/images/icons/search-two.svg' %}" alt=""></span>
                             </div>
                         </div>
                         <div class="col-sm-4 col-xs-6">
@@ -91,7 +100,8 @@
                                 <button type="reset" class="text-body font-14">Tozalash</button>
                             </div>
                             <div class="position-relative">
-                                <input type="text" class="common-input border-gray-five" id="Price" placeholder="$7 - $29">
+                                <input type="text" class="common-input border-gray-five" id="Price"
+                                    placeholder="$7 - $29">
                             </div>
                         </div>
                         <div class="col-sm-4">
@@ -115,17 +125,19 @@
             <!-- ===== Left Sidebar ===== -->
             <div class="col-xl-3 col-lg-4">
                 <div class="filter-sidebar">
-                    <button type="button" class="filter-sidebar__close p-2 position-absolute end-0 top-0 z-index-1 text-body hover-text-main font-20 d-lg-none d-block">
+                    <button type="button"
+                        class="filter-sidebar__close p-2 position-absolute end-0 top-0 z-index-1 text-body hover-text-main font-20 d-lg-none d-block">
                         <i class="las la-times"></i>
                     </button>
 
                     <div class="filter-sidebar__item">
-                        <button type="button" class="filter-sidebar__button font-16 text-capitalize fw-500">Kategoriya</button>
+                        <button type="button"
+                            class="filter-sidebar__button font-16 text-capitalize fw-500">Kategoriya</button>
                         <div class="filter-sidebar__content">
                             <ul class="filter-sidebar-list">
                                 <li class="filter-sidebar-list__item">
                                     <a href="{% url 'index' %}"
-                                       class="filter-sidebar-list__text {% if not active_category %}fw-bold{% endif %}">
+                                        class="filter-sidebar-list__text {% if not active_category %}fw-bold{% endif %}">
                                         Barcha kategoriyalar
                                         <span class="qty">{{ total_products }}</span>
                                     </a>
@@ -133,7 +145,7 @@
                                 {% for cat in categories %}
                                 <li class="filter-sidebar-list__item">
                                     <a href="{% url 'index_by_category' cat.id %}"
-                                       class="filter-sidebar-list__text {% if active_category == cat.id %}fw-bold{% endif %}">
+                                        class="filter-sidebar-list__text {% if active_category == cat.id %}fw-bold{% endif %}">
                                         {{ cat.name }}
                                         <span class="qty">{{ cat.product_set.count }}</span>
                                     </a>
@@ -144,13 +156,15 @@
                     </div>
 
                     <div class="filter-sidebar__item">
-                        <button type="button" class="filter-sidebar__button font-16 text-capitalize fw-500">Reyting</button>
+                        <button type="button"
+                            class="filter-sidebar__button font-16 text-capitalize fw-500">Reyting</button>
                         <div class="filter-sidebar__content">
                             <ul class="filter-sidebar-list">
                                 <li class="filter-sidebar-list__item">
                                     <div class="filter-sidebar-list__text">
                                         <div class="common-check common-radio">
-                                            <input class="form-check-input" type="radio" name="rating" id="veiwAll" checked>
+                                            <input class="form-check-input" type="radio" name="rating" id="veiwAll"
+                                                checked>
                                             <label class="form-check-label" for="veiwAll"> Barchasini ko'rish</label>
                                         </div>
                                         <span class="qty">(1859)</span>
@@ -160,7 +174,8 @@
                                     <div class="filter-sidebar-list__text">
                                         <div class="common-check common-radio">
                                             <input class="form-check-input" type="radio" name="rating" id="oneStar">
-                                            <label class="form-check-label" for="oneStar"> 1 yulduz va undan yuqori</label>
+                                            <label class="form-check-label" for="oneStar"> 1 yulduz va undan
+                                                yuqori</label>
                                         </div>
                                         <span class="qty">(785)</span>
                                     </div>
@@ -169,7 +184,8 @@
                                     <div class="filter-sidebar-list__text">
                                         <div class="common-check common-radio">
                                             <input class="form-check-input" type="radio" name="rating" id="twoStar">
-                                            <label class="form-check-label" for="twoStar"> 2 yulduz va undan yuqori</label>
+                                            <label class="form-check-label" for="twoStar"> 2 yulduz va undan
+                                                yuqori</label>
                                         </div>
                                         <span class="qty">(1250)</span>
                                     </div>
@@ -178,7 +194,8 @@
                                     <div class="filter-sidebar-list__text">
                                         <div class="common-check common-radio">
                                             <input class="form-check-input" type="radio" name="rating" id="threeStar">
-                                            <label class="form-check-label" for="threeStar"> 3 yulduz va undan yuqori</label>
+                                            <label class="form-check-label" for="threeStar"> 3 yulduz va undan
+                                                yuqori</label>
                                         </div>
                                         <span class="qty">(7580)</span>
                                     </div>
@@ -187,7 +204,8 @@
                                     <div class="filter-sidebar-list__text">
                                         <div class="common-check common-radio">
                                             <input class="form-check-input" type="radio" name="rating" id="fourStar">
-                                            <label class="form-check-label" for="fourStar"> 4 yulduz va undan yuqori</label>
+                                            <label class="form-check-label" for="fourStar"> 4 yulduz va undan
+                                                yuqori</label>
                                         </div>
                                         <span class="qty">(1450)</span>
                                     </div>
@@ -206,13 +224,15 @@
                     </div>
 
                     <div class="filter-sidebar__item">
-                        <button type="button" class="filter-sidebar__button font-16 text-capitalize fw-500">Yangilangan sana</button>
+                        <button type="button" class="filter-sidebar__button font-16 text-capitalize fw-500">Yangilangan
+                            sana</button>
                         <div class="filter-sidebar__content">
                             <ul class="filter-sidebar-list">
                                 <li class="filter-sidebar-list__item">
                                     <div class="filter-sidebar-list__text">
                                         <div class="common-check common-radio">
-                                            <input class="form-check-input" type="radio" name="dateFilter" id="anyDate" checked>
+                                            <input class="form-check-input" type="radio" name="dateFilter" id="anyDate"
+                                                checked>
                                             <label class="form-check-label" for="anyDate"> Istalgan sana</label>
                                         </div>
                                         <span class="qty">5,203</span>
@@ -221,7 +241,8 @@
                                 <li class="filter-sidebar-list__item">
                                     <div class="filter-sidebar-list__text">
                                         <div class="common-check common-radio">
-                                            <input class="form-check-input" type="radio" name="dateFilter" id="lastYear">
+                                            <input class="form-check-input" type="radio" name="dateFilter"
+                                                id="lastYear">
                                             <label class="form-check-label" for="lastYear"> Oxirgi yilda</label>
                                         </div>
                                         <span class="qty">1,258</span>
@@ -230,7 +251,8 @@
                                 <li class="filter-sidebar-list__item">
                                     <div class="filter-sidebar-list__text">
                                         <div class="common-check common-radio">
-                                            <input class="form-check-input" type="radio" name="dateFilter" id="lastMonth">
+                                            <input class="form-check-input" type="radio" name="dateFilter"
+                                                id="lastMonth">
                                             <label class="form-check-label" for="lastMonth"> Oxirgi oyda</label>
                                         </div>
                                         <span class="qty">2,450</span>
@@ -239,7 +261,8 @@
                                 <li class="filter-sidebar-list__item">
                                     <div class="filter-sidebar-list__text">
                                         <div class="common-check common-radio">
-                                            <input class="form-check-input" type="radio" name="dateFilter" id="lastWeek">
+                                            <input class="form-check-input" type="radio" name="dateFilter"
+                                                id="lastWeek">
                                             <label class="form-check-label" for="lastWeek"> Oxirgi haftada</label>
                                         </div>
                                         <span class="qty">325</span>
@@ -272,63 +295,76 @@
                                     {% if product.image %}
                                     <img src="{{ product.image.url }}" alt="{{ product.name }}" class="cover-img">
                                     {% else %}
-                                    <img src="{% static 'assets/images/thumbs/product-img1.png' %}" alt="{{ product.name }}" class="cover-img">
+                                    <img src="{% static 'assets/images/thumbs/product-img1.png' %}"
+                                        alt="{{ product.name }}" class="cover-img">
                                     {% endif %}
                                 </a>
                             </div>
                             <div class="product-card__content">
                                 <h6 class="product-card__title">
-                                    <a href="{% url 'product_detail' product.code %}" class="link">{{ product.name }}</a>
+                                    <a href="{% url 'product_detail' product.code %}" class="link">{{ product.name
+                                        }}</a>
                                 </h6>
                                 <div class="product-card__info flx-between gap-2">
                                     <span class="product-card__author">
-                                        tomonidan
                                         <a href="{% url 'category_filter' product.category.id %}"
-                                           class="link hover-text-decoration-underline"> {{ product.category.name }}</a>
+                                            class="link hover-text-decoration-underline">{{ product.category.name}}</a>
+                                        dan
                                     </span>
                                     <div class="flx-align gap-2">
                                         <h6 class="product-card__price mb-0">${{ product.price }}</h6>
                                         {% if product.discount_status and product.discount_price %}
-                                        <span class="product-card__prevPrice text-decoration-line-through">${{ product.discount_price }}</span>
+                                        <span
+                                            class="product-card__prevPrice text-decoration-line-through">${{product.discount_price}}</span>
                                         {% endif %}
                                     </div>
                                 </div>
                                 <div class="product-card__bottom flx-between gap-2">
-                        <div>
-                            <span class="product-card__sales font-14 mb-2">{{ product.count }} ta sotilgan</span>
-                            <div class="d-flex align-items-center gap-1">
-                                <ul class="star-rating">
-                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i></li>
-                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i></li>
-                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i></li>
-                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i></li>
-                                    <li class="star-rating__item font-11"><i class="fas fa-star"></i></li>
-                                </ul>
+                                    <div>
+                                        <span class="product-card__sales font-14 mb-2">{{ product.count }} ta
+                                            sotilgan</span>
+                                        <div class="d-flex align-items-center gap-1">
+                                            <ul class="star-rating">
+                                                <li class="star-rating__item font-11"><i class="fas fa-star"></i></li>
+                                                <li class="star-rating__item font-11"><i class="fas fa-star"></i></li>
+                                                <li class="star-rating__item font-11"><i class="fas fa-star"></i></li>
+                                                <li class="star-rating__item font-11"><i class="fas fa-star"></i></li>
+                                                <li class="star-rating__item font-11"><i class="fas fa-star"></i></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    {% if product.id in wishlist_ids %}
+                                    <a href="{% url 'delete_wishlist' product.code %}"
+                                        class="btn btn-outline-light btn-sm pill"><i class="fa fa-heart"
+                                            style="color: red"></i></a>
+                                    {% else %}
+                                    <a href="{% url 'add_wishlist' product.code %}"
+                                        class="btn btn-outline-light btn-sm pill"><i class="fa fa-heart"
+                                            style="color: #c7bfbf"></i></a>
+                                    {% endif %}
+                                    {% if product.id in cart_ids %}
+                                    <a href="{% url 'remove_from_cart' product.code %}"
+                                        class="btn btn-outline-light btn-sm pill"><i class="fas fa-shopping-cart"
+                                            style="color: hsl(var(--main));"></i></a>
+                                    {% else %}
+                                    <a href="{% url 'add_to_cart' product.code %}"
+                                        class="btn btn-outline-light btn-sm pill"><i class="fas fa-cart-plus"
+                                            style="color: #c7bfbf;"></i></a>
+                                    {% endif %}
+                                    <a href="{% url 'product_detail' product.code %}"
+                                        class="btn btn-outline-light btn-sm pill">Ko'rish</a>
+                                </div>
                             </div>
                         </div>
-                        {% if product.id in wishlist_ids %}
-                        <a href="{% url 'delete_wishlist' product.code %}" class="btn btn-outline-light btn-sm pill"><i class="fa fa-heart" style="color: red"></i></a>
-                        {% else %}
-                        <a href="{% url 'add_wishlist' product.code %}" class="btn btn-outline-light btn-sm pill"><i class="fa fa-heart" style="color: #c7bfbf"></i></a>
-                        {% endif %}
-                        {% if product.id in cart_ids %}
-                        <a href="{% url 'remove_from_cart' product.code %}" class="btn btn-outline-light btn-sm pill"><i class="fas fa-shopping-cart" style="color: hsl(var(--main));"></i></a>
-                        {% else %}
-                        <a href="{% url 'add_to_cart' product.code %}" class="btn btn-outline-light btn-sm pill"><i class="fas fa-cart-plus" style="color: #c7bfbf;"></i></a>
-                        {% endif %}
-                        <a href="{% url 'product_detail' product.code %}" class="btn btn-outline-light btn-sm pill">Ko'rish</a>
                     </div>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
-            {% endfor %}
-        </div>
-    </div>
 </section>
 <!-- ========================= Free Resources Section End =========================== -->
 
 <!-- ======================== Brand Section ========================= -->
-<div class="brand">
+<!-- <div class="brand">
     <div class="container container">
         <div class="brand-slider">
             <div class="brand-item d-flex align-items-center justify-content-center">
@@ -348,7 +384,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 <!-- ======================== Brand Section End ========================= -->
 
 {% endblock %}
